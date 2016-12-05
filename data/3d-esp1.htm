@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="process.js"></script>
+%& <!-- links -->
+  <title>ESP8266 real 3D demo - Arduino Mega Server</title>
+
+<style>
+  body {
+    background: #c80001;
+  }
+  
+  .full-screen {
+    color: #fff;
+    background: #c80001;
+    background-size: 100% 100%;
+  }
+
+  #sketch {
+    display: block;
+    margin: 0 auto;
+    margin-top: 30%;
+    padding-left: 100px;
+  }
+  
+  .esp-lite1 {
+    color: #eee;
+  }
+</style>
+
+<script>
+  function start() {
+    getFull2Data();
+  }
+
+  // Timeline graphics
+  var bufferElectro1 = [];
+
+  // Main function
+  function getFull2Data() {
+    dash_marker2 = parseFloat("1.0");
+    dash_marker3 = parseFloat("1.0");
+
+    var request = new XMLHttpRequest();
+    request.onreadystatechange = function() {
+      if (this.readyState == 4) {
+        if (this.status == 200) {
+          if (this.responseXML != null) {
+
+            dash_marker1 = parseFloat("1.0");
+            dash_marker2 = parseFloat("0.0");
+
+            try {
+              var pwr = this.responseXML.getElementsByTagName('power')[0].childNodes[0].nodeValue;
+            } catch (err) {
+                pwr = "0";
+              }
+            //var power = Math.round(parseInt(pwr), 0);
+
+            //document.getElementById("big-dig").innerHTML = power;
+            //line('info-graph1', power, bufferElectro1, 'rgba(255, 255, 255, 1)');
+
+          } // if (this.responseXML != null)
+        } // if (this.status == 200)
+      } // if (this.readyState == 4)
+    } // request.onreadystatechange = function()
+
+    dash_marker1 = parseFloat("0.0");
+
+    request.open("GET", "request_dash" + randomNoCache(), true);
+    request.send(null);
+    setTimeout('getFull2Data()', 3000);
+    dash_marker3 = parseFloat("0.0");
+  } // getFull2Data()
+  
+%# // scripts.js
+</script>
+</head>
+
+<body onload="start();">
+  <div id="page_loading" class="light">
+    <div class="loader"><div><div></div></div></div>
+  </div>
+
+  <div class="level-full full-screen">
+    <div class="cell-2">
+      <canvas id="sketch" data-processing-sources="cube.pde"></canvas>
+    </div>
+    <div class="cell-2">
+      <div class="box-image auto" style="max-width:320px; padding-left:5px; margin-top:10%;">
+        <img class="auto" src="esp-logo.png" alt="">
+        <div class="box-info">
+          <h2 class="esp-lite1">ESP8266 real 3D demo</h2>
+          <p>Demonstration work real 3D interactive graphics on ESP8266 modul. Cube is multifunctional indicator and universal control tool. Balls show activity of network functions in real time</p>
+          <br>
+          <p class="esp-lite1">Powered by Arduino Mega Server</p>
+        </div>
+      </div>
+    </div>
+    <div style="clear:both"></div>
+  </div> <!-- level -->
+
+  <div class="panel">
+    <div class="action-panel">
+      <p>.</p>
+    </div>
+    <div class="hidden-panel">
+      <div class="cell-3">
+        <a href="javascript:history.back();">Back</a>
+        <a href="javascript:history.forward();">Forward</a>
+      </div>
+      <div class="cell-3">
+        <a href="/">Home</a>
+      </div>
+      <div class="cell-3">
+        <a href="3d-esp2.htm">Next</a>
+      </div>
+      <div style="clear:both"></div>
+    </div>
+  </div> <!-- panel -->
+
+</body>
+</html>

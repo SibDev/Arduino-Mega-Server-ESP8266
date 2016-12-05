@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+%& <!-- links -->
+  <title>Темы и сайты - Arduino Mega Server</title>
+
+<script>
+  var strLED1 = "";
+  var strRD2 = "";
+  var reload = false;
+
+  var oldValRD2 = "";
+  var oldWorkMode = "";
+
+  function cycleThemes() {
+    var request = new XMLHttpRequest();
+    request.onreadystatechange = function() {
+      if (this.readyState == 4) {
+        if (this.status == 200) {
+          if (this.responseXML != null) {
+            // net activ
+            insertTick(30, bufferCpuLoad2);
+        
+            // RD2
+            var valRD2 = this.responseXML.getElementsByTagName('RD2')[0].childNodes[0].nodeValue;
+
+            if (oldValRD2 != "" && oldValRD2 != valRD2) {reload = true;}
+
+            switch (valRD2) {
+              //case "1": document.getElementById("rd1").checked = true; break;
+              case "2": document.getElementById("rd2").checked = true; break;
+              case "3": document.getElementById("rd3").checked = true; break;
+              case "4": document.getElementById("rd4").checked = true; break;
+              case "5": document.getElementById("rd5").checked = true; break;
+              case "6": document.getElementById("rd6").checked = true; break;
+              case "8": document.getElementById("rd8").checked = true; break;
+              default:  document.getElementById("rd7").checked = true;
+            }
+            oldValRD2 = valRD2;
+          
+          } // if (this.responseXML != null)
+        } // if (this.status == 200)
+      } // if (this.readyState == 4)
+    } // request.onreadystatechange = function()
+
+    if (reload) {
+      reload = false;
+      alert('Сейчас стиль оформления будет изменён. Перезагрузка может занять несколько секунд...')
+      location.reload();
+    }
+
+    // send HTTP GET request with strCommands
+    request.open("GET", "request_themes" + strLED1 + strRD2 + randomNoCache(), true);
+    request.send(null);
+    setTimeout('cycleThemes()', 3000);
+    strLED1 = "";
+    strRD2 = "";
+
+  } // cycleSettings()
+
+  function setRadio() {
+    strRD2 = "&RD2=0";
+    //if (document.getElementById("rd1").checked) {strRD2 = "&RD2=1";}
+    if (document.getElementById("rd2").checked) {strRD2 = "&RD2=2";}
+    if (document.getElementById("rd3").checked) {strRD2 = "&RD2=3";}
+    if (document.getElementById("rd4").checked) {strRD2 = "&RD2=4";}
+    if (document.getElementById("rd5").checked) {strRD2 = "&RD2=5";}
+    if (document.getElementById("rd6").checked) {strRD2 = "&RD2=6";}
+    if (document.getElementById("rd8").checked) {strRD2 = "&RD2=8";}  
+    if (document.getElementById("rd7").checked) {strRD2 = "&RD2=7";}
+  }
+  
+  function start() {
+    document.getElementById("hider-2").style.display = "none";
+    logoRotator();
+    getDashData();
+    cycleThemes();
+  }
+
+  var hideInfo1 = false;
+  var hideInfo2 = true;
+
+  function showHide1() {
+    if (hideInfo1) {document.getElementById("hider-1").style.display = "block"; hideInfo1 = false;}
+              else {document.getElementById("hider-1").style.display = "none"; hideInfo1 = true;}
+  }
+  function showHide2() {
+    if (hideInfo2) {document.getElementById("hider-2").style.display = "block"; hideInfo2 = false;}
+              else {document.getElementById("hider-2").style.display = "none"; hideInfo2 = true;}
+  }
+  
+%# // scripts.js
+var currentPage = 'themes-page';
+</script>
+</head>
+
+<body onload="start();">
+%1 <!-- header -->
+%2 <!-- dash -->
+%3 <!-- menu -->
+  <div class="level">
+    <div class="block">
+      <h1 class="title-page">ТЕМЫ И САЙТЫ</h1>
+      <div class="level-title clickable" onclick="showHide1()">
+        <h2>Оформление и сайты партнёров</h2>
+        <img src="a-show.png" alt="">
+      </div>
+      <div id="hider-1">
+        <div class="cell-2">
+          <div class="box">
+            <h3>Сайты-темы партнёров</h3>
+            <p><input type="radio" name="radioTest" id="rd2" value="Радио (2)" onclick="setRadio()" /> Амперка</p>
+            <p><input type="radio" name="radioTest" id="rd3" value="Радио (3)" onclick="setRadio()" /> Geegrow <span class="red">скидки</span></p>
+            <p><input type="radio" name="radioTest" id="rd4" value="Радио (4)" onclick="setRadio()" /> nooLite</p>
+            <p class="disable"><input type="radio" name="radioTest" id="rd10" disabled="disabled" /> Ваша компания</p>
+            <p>Сайты-темы наших партнёров: настройки, примеры, информация и эксклюзивные предложения для вас</p>
+          </div>
+        </div>
+        <div class="cell-2">
+          <div class="box">
+            <h3>Стили дизайна</h3>
+            <p><input type="radio" name="radioTest" id="rd7" value="Радио (2)" onclick="setRadio()" /> Гик моде</p>
+            <p><input type="radio" name="radioTest" id="rd5" value="Радио (5)" onclick="setRadio()" /> Домашний</p>
+            <p><input type="radio" name="radioTest" id="rd6" value="Радио (6)" onclick="setRadio()" /> Модерн</p>
+            <p><input type="radio" name="radioTest" id="rd8" value="Радио (8)" onclick="setRadio()" /> Хакер дизайн</p>
+            <p>То, как будет выглядеть ваш сайт. От техно-гиков к полному минимализму</p>
+          </div>
+        </div>
+      </div> <!-- hider -->
+      <div style="clear:both"></div>
+    </div>
+  </div> <!-- level -->
+
+  <div class="level">
+    <div class="block">
+      <div class="level-title clickable" onclick="showHide2()">
+        <h2>...</h2>
+        <img src="a-show.png" alt="">
+      </div>
+      <div id="hider-2">
+        <div class="cell-4">
+          <div class="box">
+
+          </div>
+        </div>
+        <div class="cell-4">
+          <div class="box">
+
+          </div>
+        </div>
+        <div class="cell-4">
+          <div class="box">
+
+          </div>
+        </div>
+        <div class="cell-4">
+          <div class="box">
+
+          </div>
+        </div>
+      </div> <!-- hider -->
+      <div style="clear:both"></div>
+    </div>
+  </div> <!-- level   -->
+
+%5
+  
+%4 <!-- footer -->
+</body>
+</html>

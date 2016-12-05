@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+%& <!-- links -->
+  <title>SPIFFS - Arduino Mega Server</title>
+
+<script>
+  function start() {
+    logoRotator();
+    getSpiffsSettings();
+    getDashData();
+  }
+
+  function getSpiffsSettings() {
+    var request = new XMLHttpRequest();
+
+    request.onreadystatechange = function() {
+      if (this.readyState == 4) {
+        if (this.status == 200) {
+          if (this.responseXML != null) {
+
+            // type SD
+            try {
+              var SDcardTypeCode = this.responseXML.getElementsByTagName('sdType')[0].childNodes[0].nodeValue;
+            } catch (err) {
+                SDcardTypeCode = "-1";
+              }
+            var SDcardType = "Unknown";
+            switch (SDcardTypeCode) {
+              case "1": SDcardType = "SD1"; break;
+              case "2": SDcardType = "SD2"; break;
+              case "3": SDcardType = "SDHC";break;
+            }
+            document.getElementById("sd-card-type").innerHTML = SDcardType;
+
+            // file system
+            try {
+              var SDcardFileSystemCode = this.responseXML.getElementsByTagName('sdSystem')[0].childNodes[0].nodeValue;
+            } catch (err) {
+                SDcardFileSystemCode = "-1";
+              }
+
+            var SDcardFileSystem = "Unknown";
+            switch (SDcardFileSystemCode) {
+              case "16": SDcardFileSystem = "FAT16"; break;
+              case "32": SDcardFileSystem = "FAT32"; break;
+            }
+            document.getElementById("sd-card-file-system").innerHTML = SDcardFileSystem;
+
+            // size
+            try {
+              var SDcardsdVolumeSize = this.responseXML.getElementsByTagName('sdSize')[0].childNodes[0].nodeValue;
+            } catch (err) {
+                SDcardsdVolumeSize = "0";
+              }
+            document.getElementById("sd-volume-size").innerHTML = SDcardsdVolumeSize;
+
+            // files
+            try {
+              var SDcardsdRootDir = this.responseXML.getElementsByTagName('sdRootDir')[0].childNodes[0].nodeValue;
+            } catch (err) {
+                SDcardsdRootDir = ".../...";
+              }
+            //var templ = / /g;
+            //var resStr = SDcardsdRootDir.replace(templ, '<br>');
+            //document.getElementById("sd-root-dir").innerHTML = resStr;
+            document.getElementById("sd-root-dir").innerHTML = SDcardsdRootDir;
+            document.getElementById("cont2").innerHTML = cont2status;
+
+          } //if (this.responseXML != null)
+        } // if (this.status == 200)
+      } // if (this.readyState == 4)
+    } // request.onreadystatechange
+
+    request.open("GET", "request_spiffs" + randomNoCache(), true);
+    request.send(null);
+
+    setTimeout('getSpiffsSettings()', 10000);
+  } // getSpiffdSettings()
+  
+%# // scripts.js
+</script>
+</head>
+
+<body onload="start();">
+%1 <!-- header -->
+%2 <!-- dash -->
+%3 <!-- menu -->
+  <div class="level">
+    <div class="block">
+      <h1 class="title-page">SPI Flash File System</h1>
+      <div class="cell-3">
+        <div class="box">
+          <h3>Flash</h3>
+          <p>Тип: <span class="value" id="sd-card-type">...</span></p>
+          <p>Файловая система: <span class="value" id="sd-card-file-system">...</span></p>
+          <p>Объём: <span class="value" id="sd-volume-size">...</span> МБ</p>
+        </div>
+      </div>
+      <div class="cell-3x2">
+        <div class="box">
+          <h3>Файлы</h3>
+          <p><span class="value" id="sd-root-dir">...</span></p>
+        </div>
+      </div>
+      <div style="clear:both"></div>
+    </div>
+  </div> <!-- level -->
+
+%5
+  
+%4 <!-- footer -->
+</body>
+</html>

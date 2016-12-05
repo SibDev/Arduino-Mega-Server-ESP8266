@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+%& <!-- links -->
+  <title>О системе - Arduino Mega Server</title>
+  
+<script>
+  function start() {
+    document.getElementById("hider-1").style.display = "none";
+    document.getElementById("hider-3").style.display = "none";
+    document.getElementById("hider-4").style.display = "none";
+    document.getElementById("hider-5").style.display = "none";
+    logoRotator();
+    getDashData();
+  }
+
+  var hideInfo1 = true;
+  var hideInfo2 = false;
+  var hideInfo3 = true;
+  var hideInfo4 = true;
+  var hideInfo5 = true;
+  
+  function showHide1() {
+    if (hideInfo1) {document.getElementById("hider-1").style.display = "block"; hideInfo1 = false;}
+              else {document.getElementById("hider-1").style.display = "none"; hideInfo1 = true;}
+  }
+  function showHide2() {
+    if (hideInfo2) {document.getElementById("hider-2").style.display = "block"; hideInfo2 = false;}
+              else {document.getElementById("hider-2").style.display = "none"; hideInfo2 = true;}
+  }
+  function showHide3() {
+    if (hideInfo3) {document.getElementById("hider-3").style.display = "block"; hideInfo3 = false;}
+              else {document.getElementById("hider-3").style.display = "none"; hideInfo3 = true;}
+  }
+  function showHide4() {
+    if (hideInfo4) {document.getElementById("hider-4").style.display = "block"; hideInfo4 = false;}
+              else {document.getElementById("hider-4").style.display = "none"; hideInfo4 = true;}
+  }
+    function showHide5() {
+    if (hideInfo5) {document.getElementById("hider-5").style.display = "block"; hideInfo5 = false;}
+              else {document.getElementById("hider-5").style.display = "none"; hideInfo5 = true;}
+  }
+
+%# // scripts.js
+</script>
+</head>
+
+<body onload="start()">
+%1 <!-- header -->
+%2 <!-- dash -->
+%3 <!-- menu -->
+  <div class="level">
+    <div class="block">
+      <h1 class="title-page">О СИСТЕМЕ</h1>
+      <div class="level-title clickable" onclick="showHide1()">
+        <h2>Что такое Arduino Mega Server?</h2>
+        <img src="a-show.png" alt="">
+      </div>
+      <div id="hider-1">
+      <div class="cell-1">
+        <div class="box">
+          <h3>Кратко</h3>
+          <p><strong>Arduino Mega Server</strong> это Arduino с «человеческим лицом». Это всё тот же микроконтроллер, который может выполнять любые нужные вам функции, но при этом он обладает встроенным интерфейсом, который не отличается от привычных вам веб-сайтов. Для управления функциями вашего устройства вам больше ничего не нужно — весь функционал вы можете менять и настраивать прямо с веб-странички.</p>
+          <p>У <strong>AMS</strong> практически нет ограничений на современные веб-технологии и информацию из контроллера вы также можете выводить в очень красивом и привлекательном виде. Здесь всё ограничено только вашей фантазией.</p>
+          <p>Arduino Mega Server полностью самодостаточен, он может работать автономно и для доступа к нему вам понадобится только стандартный браузер. Проекты, созданные на AMS, могут быть абсолютно любыми: автономные и групповые узлы Умного Дома, управление теплицами и электроприборами, игрушки, обучающие наборы и т. д. и т. п.</p>
+          <p>И для построения всего этого вам кроме Arduino Mega Server и периферийного оборудования больше ничего не понадобится.</p>
+        </div>
+      </div>
+      </div> <!-- hider -->
+      <div style="clear:both"></div>
+    </div>
+  </div> <!-- level -->
+
+  <div class="level">
+    <div class="block">
+      <div class="level-title clickable" onclick="showHide2()">
+        <h2>Arduino Mega Server</h2>
+        <img src="a-show.png" alt="">
+      </div>
+      <div id="hider-2">
+        <div class="cell-2">
+          <div class="box">
+            <h3>Проект</h3>
+            <p>Arduino Mega Server for ESP8266 <span class="value">0.15</span></p>
+            <h3>О проекте</h3>
+            <p>Домашняя страница: <span class="value"><a href="//hi-lab.ru/arduino-mega-server" target="_blank">hi-lab.ru/arduino-mega-server</a></span></p>
+            <p>Почта: <span class="value"><a href="mailto:info@hi-lab.ru">info@hi-lab.ru</a></span></p>
+            <p><span class="value">2016, Hi-Lab.ru</span></p>
+            <p>Лицензия: <span class="value">Свободное ПО без каких-либо ограничений, использование на свой страх и риск (права на сторонние библиотеки принадлежат их владельцам)</span></p>
+          </div>
+        </div>
+        <div class="cell-2">
+          <div class="box">
+            <h3>Оборудование</h3>
+            <p>Микроконтроллер: <span class="value">модуль ESP8266</span></p>
+            <h3>Документация</h3>
+            <p>Документация проекта: <span class="value"><a href="//hi-lab.ru/arduino-mega-server/documentation" target="_blank">hi-lab.ru/arduino-mega-server/documentation</a></span></p>
+            <h3>Среда разработки</h3>
+            <p>Arduino: <span class="value">1.6.5 r2</span></p>
+          </div>
+        </div>
+      </div> <!-- hider -->
+      <div style="clear:both"></div>
+    </div>
+  </div> <!-- level -->
+
+  <div class="level">
+    <div class="block">
+      <div class="level-title clickable" onclick="showHide3()">
+        <h2>Возможности</h2>
+        <img src="a-show.png" alt="">
+      </div>
+      <div id="hider-3">
+      <div class="cell-1">
+        <div class="box">
+          <h3>О системе</h3>
+          <ul>
+            <li><strong>Полноценный веб-интерфейс</strong><br>Полностью поддерживаются: HTML, CSS, JavaScript, Ajax, Processing, THREE.js и т. д.</li>
+            <li><strong>Нет ограничений на размер файлов</strong><br>Файлы могут быть любого размера и в любых количествах. Графика, скрипты, логи, фотографии...</li>
+            <li><strong>Хостинг на микроконтроллере</strong><br>На вашем микроконтроллере могут храниться и работать сотни сайтов (с известными ограничениями)</li>
+            <li><strong>Ajax в обе стороны</strong><br>Мгновенное отображение состояния контроллера на веб-странице и мгновенное реагирование на установку чекбоксов или нажатие кнопок в интерфейсе</li>
+            <li><strong>Перепрошивка сервера на лету</strong><br>Просто посылаете файл «по воздуху», сервер обновляется и продолжает работу</li>
+            <li><strong>Адаптивный дизайн</strong><br>Странички сами подстраиваются под размер экрана вашего устройства</li>
+            <li><strong>Самодокументирование</strong><br>Сайт вашего микроконтроллера может содержать подробнейшую интерактивную документацию по самому себе и своему окружению</li>
+            <li><strong>Кроссплатформенная система</strong><br>AMS работает на Arduino Mega, Arduino Due, Genuino 101, Wi-Fi модулях ESP8266 и других платформах и этот список постоянно расширяется</li>
+            <li><strong>Поддержка беспроводных технологий</strong><br>AMS поддерживает работу с беспроводными технологиями nooLite, nRF24 и т. д.</li>
+          </ul>
+        </div>
+      </div>
+      <div style="clear:both"></div>
+    </div>
+  </div> <!-- level -->
+
+  <div class="level">
+    <div class="block">
+      <div class="level-title clickable" onclick="showHide4()">
+        <h2>Подробности</h2>
+        <img src="a-show.png" alt="">
+      </div>
+      <div id="hider-4">
+      <div class="cell-2">
+        <div class="box">
+          <h3>Ограничения</h3>
+          <ul>
+            <li><strong>Версия 0.x</strong><br> Только для энтузиастов-кодеров и <strong>без каких-либо гарантий</strong>. Для работы с проектом необходимы обширные знания современных технологий и большое желание разобраться во всём самому. Если вы «обычный» пользователь, то, возможно, вам стоит немного подождать пока проект не приобретёт более законченный вид</li>
+          </ul>
+        </div>
+      </div>
+      <div class="cell-2">
+        <div class="box">
+          <h3>Актуальные задачи</h3>
+          <p>Если у вас есть желание помочь проекту и соответствующая квалификация, то вы можете попробовать решить одну из актуальных задач, стоящих перед проектом. Дополнительную информацию по задачам можно получить на форуме</p>
+        </div>
+      </div>
+      </div> <!-- hider -->
+      <div style="clear:both"></div>
+    </div>
+  </div> <!-- level -->
+
+  <div class="level">
+    <div class="block">
+      <div class="level-title clickable" onclick="showHide5()">
+        <h2>Версии</h2>
+        <img src="a-show.png" alt="">
+      </div>
+      <div id="hider-5">
+      <div class="cell-1">
+        <div class="box">
+          <h3>Внесённые изменения и улучшения</h3>
+          <h4>Версия 0.15</h4>
+          <ul>
+            <li>Стартовый выпуск для платформы ESP8266</li>
+            <li>Полностью обновлён и переработан код</li>
+            <li>Увеличена потоковая скорость передачи файлов</li>
+            <li>Стало минимальным время загрузки 3D графики</li>
+            <li>Удалён тандемный режим</li>
+            <li>Подключены графики свободной памяти и сетевой активности</li>
+            <li>Добавлен технологический режим</li>
+            <li>Добавлена возможность перепрошивки «по воздуху»</li>
+            <li>Добавлен редактор и возможность загрузки и удаления файлов  «по воздуху»</li>
+            <li>Добавлены  3D демо, показывающие возможности работы с 3D графикой на ESP8266</li>
+            <li>Добавлен режим авторизации логин/пароль</li>
+            <li>Добавлен FTP сервер (в разработке)</li>
+            <li>Периферия и датчики подключены в тестовом режиме на новой платформе (в разработке)</li>
+          </ul>
+        </div>
+      </div>
+      </div> <!-- hider -->
+      <div style="clear:both"></div>
+    </div>
+  </div> <!-- level -->
+
+%5
+  
+%4 <!-- footer -->
+</body>
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+%& <!-- links -->
+  <title>Электро - Arduino Mega Server</title>
+  
+<script>  
+  function start() {
+    logoRotator();
+    cycleElectroControl();
+    getDashData();
+  }
+  
+  var button1str = "";
+  var button1state;
+
+  function cycleElectroControl() {
+    var request = new XMLHttpRequest();
+    request.onreadystatechange = function() {
+      if (this.readyState == 4) {
+        if (this.status == 200) {
+          if (this.responseXML != null) {
+
+            // Button Electro ON/OFF
+            var modElectro = this.responseXML.getElementsByTagName('modulElectro')[0].childNodes[0].nodeValue;
+            if (modElectro != "2") {
+              if (this.responseXML.getElementsByTagName('LED')[0].childNodes[0].nodeValue === "on") {
+                document.getElementById("button-electro").innerHTML = "ON";
+                document.getElementById("button-electro").style.background = modulActive;
+                button1state = 1;
+              } else {
+                  document.getElementById("button-electro").innerHTML = "OFF";
+                  document.getElementById("button-electro").style.background = modulPassive;
+                  button1state = 0;
+                }
+            }
+          } // if (this.responseXML != null)
+        } // if (this.status == 200)
+      } // if (this.readyState == 4)
+    } // request.onreadystatechange = function()
+
+    // send HTTP GET request with strCommands
+    request.open("GET", "req_el_control" + button1str + randomNoCache(), true);
+    request.send(null);
+    setTimeout('cycleElectroControl()', 1000);
+    button1str = "";
+  } // cycleElectroControl()
+
+  function setButton1() {
+    if (button1state === 1) {
+      button1state = 0;
+      button1str = "&btn1=0";
+    } else {
+        button1state = 1;
+        button1str = "&btn1=1";
+      }
+  }
+  
+%# // scripts.js
+var currentPage = 'electro-page';
+</script>
+</head>
+
+<body onload="start();">
+%1 <!-- header -->
+%2 <!-- dash -->
+%3 <!-- menu -->
+  <div class="level">
+    <div class="block">
+      <h1 class="title-page">ЭЛЕКТРО</h1>
+      <div class="cell-4">
+        <div class="box">
+          <h3>Модуль</h3>
+          <p>Состояние: <span class="value" id="modul-electro">...</span></p>
+          <button type="button" id="button-electro" onclick="setButton1()">-</button>
+          <p>Мощность: <span class="value" id="p1">...</span> Вт</p>
+          <p>Напряжение: <span class="value" id="volt">...</span> В</p>
+        </div>
+      </div>
+      <div class="cell-4">
+        <div class="box">
+          <h3>Общая мощность</h3>
+          <p>Вт</p>
+          <canvas id="graph-test" width="210" height="190"></canvas>
+        </div>
+      </div>
+      <div class="cell-2">
+        <div class="box">
+
+         </div>
+      </div>      
+      <div style="clear:both"></div>
+    </div>
+  </div> <!-- level -->
+
+  <div class="level">
+    <div class="block">
+      <div class="level-title">
+        <h2>Электроустройства</h2>
+      </div>
+      <div class="cell-1">
+        <canvas class="canvas-device" id="device-plita" width="210" height="190"></canvas>
+        <canvas class="canvas-device" id="device-str" width="210" height="190"></canvas>
+        <canvas class="canvas-device" id="device-cond" width="210" height="190"></canvas>
+      </div>
+      <div style="clear:both"></div>
+    </div>
+  </div> <!-- level -->
+
+  <div class="level">
+    <div class="block">
+      <div class="level-title">
+        <h2>Электропотребители</h2>
+      </div>
+      <div class="cell-4">
+        <div class="box">
+
+        </div>
+      </div>
+      <div class="cell-4">
+        <div class="box">
+          <h3>Свет</h3>
+          <p>Свет студия: <span class="value" id="p6">...</span> Вт</p>
+          <p>Свет санузел: <span class="value" id="p7">...</span> Вт</p>
+          <p>Свет детская: <span class="value" id="p8">...</span> Вт</p>
+          <p>Свет кухня: <span class="value" id="p9">...</span> Вт</p>
+        </div>
+      </div>
+      <div class="cell-4">
+        <div class="box">
+          <h3>Электроприборы</h3>
+          <p>Плита: <span class="value" id="p2">...</span> Вт</p>
+          <p>Стиральная машина: <span class="value" id="p3">...</span> Вт</p>
+          <p>Кондиционер: <span class="value" id="p4">...</span> Вт</p>
+          <p>3BG (5): <span class="value" id="p5">...</span> Вт</p>
+         </div>
+      </div>
+      <div class="cell-4">
+        <div class="box">
+          <h3>Линии</h3>
+          <p>L2 (10): <span class="value" id="p10">...</span> Вт</p>
+          <p>L3 (11): <span class="value" id="p11">...</span> Вт</p>
+          <p>Кухня (12): <span class="value" id="p12">...</span> Вт</p>
+          <p>Серверная: <span class="value" id="p13">...</span> Вт</p>
+        </div>
+      </div>
+      <div style="clear:both"></div>
+    </div>
+  </div> <!-- level -->
+
+  <div class="level">
+    <div class="block">
+      <div class="level-title">
+        <h2>Электропотребители</h2>
+      </div>
+      <div class="cell-4">
+        <div class="box">
+          <h3>Плита</h3>
+          <p>Вт</p>
+          <canvas id="graph-plita" width="210" height="190"></canvas>
+        </div>
+      </div>
+      <div class="cell-4">
+        <div class="box">
+          <h3>Стиралка</h3>
+          <p>Вт</p>
+          <canvas id="graph-str" width="210" height="190"></canvas>
+        </div>
+      </div>
+      <div class="cell-4">
+        <div class="box">
+          <h3>Кондиционер</h3>
+          <p>Вт</p>
+          <canvas id="graph-cond" width="210" height="190"></canvas>
+         </div>
+      </div>
+      <div class="cell-4">
+        <div class="box">
+
+        </div>
+      </div>
+      <div style="clear:both"></div>
+    </div>
+  </div> <!-- level -->
+
+%5
+  
+%4 <!-- footer -->
+</body>
+</html>

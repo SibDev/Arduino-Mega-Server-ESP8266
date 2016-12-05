@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+%& <!-- links -->
+  <title>Справочник - Arduino Mega Server</title>
+
+<script>
+  function start() {
+    logoRotator();
+    getDashData();
+  }
+
+%# // scripts.js
+</script>
+</head>
+
+<body onload="start()">
+%1 <!-- header -->
+%2 <!-- dash -->
+%3 <!-- menu -->
+  <div class="level">
+    <div class="block">
+      <h1 class="title-page">СПРАВОЧНИК</h1>
+      <div class="level-title">
+        <h2>Быстрый старт</h2>
+      </div>
+      <div class="cell-1">
+        <div class="box">
+          <h3>Скетч и файлы</h3>
+          <p>Скетч: <span class="value">заливается в модуль ESP8266</span></p>
+          <p>Файлы, HTM, CSS, JS, PDE, графические файлы: <span class="value">заливаются в SPIFFS модуля ESP8266</span></p>
+          <h3>Сетевые настройки</h3>
+          <p>IP адрес Arduino Mega Server for ESP8266: <span class="value">192.168.1.40</span></p>
+        </div>
+      </div>
+      <div style="clear:both"></div>
+    </div>
+  </div> <!-- level -->
+
+  <div class="level">
+    <div class="block">
+      <div class="level-title">
+        <h2>Встроенный серверный язык программирования</h2>
+      </div>
+      <div class="cell-2">
+        <div class="box">
+          <h3>Макросы</h3>
+          <p><span class="code">% (0x25)</span> — базовый префикс макросов</p>
+          <p><span class="code">& (0x26)</span> — подключение ссылок <strong>_one*.htm</strong></p>
+          <p><span class="code"># (0x23)</span> — вставка файла <strong>scripts.js</strong></p>
+          <p><span class="code">1 (0x31)</span> — вставка хедера <strong>_header.htm</strong></p>
+          <p><span class="code">2 (0x32)</span> — вставка dash-панели <strong>_dash.htm</strong></p>
+          <p><span class="code">3 (0x33)</span> — вставка меню <strong>_menu.htm</strong></p>
+          <p><span class="code">4 (0x34)</span> — вставка футера <strong>_footer.htm</strong></p>
+          <p><span class="code">! (0x21)</span> — вставка <strong>IP адреса</strong></p>
+          <p><span class="code">? (0x3F)</span> — вставка библиотеки <strong>Flotr2</strong></p>
+          <p><span class="code">+ (0x2B)</span> — вставка библиотеки <strong>Processing</strong></p>
+          <p><span class="code">@ (0x40)</span> — вставка библиотеки <strong>Three</strong></p>
+          <p><span class="code">= (0x3D)</span> — вставка библиотеки <strong>jQuery</strong></p>
+        </div>
+      </div>
+      <div class="cell-2">
+        <div class="box">
+          <h3>Пояснения</h3>
+          <p>Макрос состоит из двух символов — базового префикса ( % ) и уникального идентификатора (без пробела между ними). Идентификатор определяет операцию, которую нужно произвести в том месте файла, где он встречается. Это может быть вставка IP адреса системы, вставка кода библиотеки или любое другое заранее определённое действие.</p>
+          <p>Здесь представлены макросы, которые уже имеются в системе. Вы можете дополнить этот список любыми необходимыми вам действиями по вставке информации в передаваемые сервером файлы.</p>
+        </div>
+      </div>
+      <div style="clear:both"></div>
+    </div>
+  </div> <!-- level -->
+
+%5
+  
+%4 <!-- footer -->
+</body>
+</html>

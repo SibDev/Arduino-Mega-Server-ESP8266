@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+%& <!-- links -->
+  <title>Сеть - Arduino Mega Server</title>
+  
+<script>
+  function start() {
+    logoRotator();
+    getNetSettings();
+    getDashData();
+  }
+
+  function getNetSettings() {
+    var request = new XMLHttpRequest();
+    request.onreadystatechange = function() {
+      if (this.readyState == 4) {
+        if (this.status == 200) {
+          if (this.responseXML != null) {
+            // IP
+            try {
+              document.form2.ip1.value = this.responseXML.getElementsByTagName('ip1')[0].childNodes[0].nodeValue;
+            } catch (err) {
+                online = "0";
+              }
+            try {
+              document.form2.ip2.value = this.responseXML.getElementsByTagName('ip2')[0].childNodes[0].nodeValue;
+            } catch (err) {
+                online = "0";
+              }
+            try {
+              document.form2.ip3.value = this.responseXML.getElementsByTagName('ip3')[0].childNodes[0].nodeValue;
+            } catch (err) {
+                online = "0";
+              }
+            try {
+              document.form2.ip4.value = this.responseXML.getElementsByTagName('ip4')[0].childNodes[0].nodeValue;
+            } catch (err) {
+                online = "0";
+              }
+            // MAC
+            try {
+              document.form2.mac1.value = this.responseXML.getElementsByTagName('mac1')[0].childNodes[0].nodeValue;
+            } catch (err) {
+                online = "0";
+              }
+            try {
+              document.form2.mac2.value = this.responseXML.getElementsByTagName('mac2')[0].childNodes[0].nodeValue;
+            } catch (err) {
+                online = "0";
+              }
+            try {
+              document.form2.mac3.value = this.responseXML.getElementsByTagName('mac3')[0].childNodes[0].nodeValue;
+            } catch (err) {
+                online = "0";
+              }
+            try {
+              document.form2.mac4.value = this.responseXML.getElementsByTagName('mac4')[0].childNodes[0].nodeValue;
+            } catch (err) {
+                online = "0";
+              }
+            try {
+              document.form2.mac5.value = this.responseXML.getElementsByTagName('mac5')[0].childNodes[0].nodeValue;
+            } catch (err) {
+                online = "0";
+              }
+            try {
+              document.form2.mac6.value = this.responseXML.getElementsByTagName('mac6')[0].childNodes[0].nodeValue;
+            } catch (err) {
+                online = "0";
+              }
+
+            // Online net devices
+            for (var i = 0; i < TOTAL_NET_DEVICES; i++) {
+              try {
+                var online = this.responseXML.getElementsByTagName(netDevicesNames[i])[0].childNodes[0].nodeValue;
+              } catch (err) {
+                  online = "-1";
+                }
+              var j = i + 1;
+              var tOnline = "online" + j;
+              if (online == "1") {
+                document.getElementById(tOnline).innerHTML = '<img src="ok.png" alt="">';
+              } else {
+                  document.getElementById(tOnline).innerHTML = '-';
+                }
+            } // for (var i = 0; i < TOTAL_NET_DEVICES; i++)
+
+          } // if (this.responseXML != null)
+        } // if (this.status == 200)
+      } // if (this.readyState == 4)
+    } // request.onreadystatechange
+
+    // send HTTP GET request
+    request.open("GET", "request_network" + randomNoCache(), true);
+    request.send(null);
+    setTimeout('getNetSettings()', 10000);
+  } // getNetSettings()
+
+  function GetMyCheck() {
+    alert("Это только альфа...");
+    //alert(form2.ip1.value);
+  }  
+
+%# // scripts.js
+</script>
+</head>
+
+<body onload="start();">
+%1 <!-- header -->
+%2 <!-- dash -->
+%3 <!-- menu -->
+  <div class="level">
+    <div class="block">
+      <h1 class="title-page">СЕТЬ</h1>
+      <div class="level-title">
+        <h2>Локальная сеть</h2>
+      </div>      
+      <div class="cell-3x2">
+        <div class="box">
+          <h3>Сетевые устройства</h3>
+          <table class="table-generic">
+            <tr class="tr-color2"><td class="td-first"><p>Коммутатор</p></td>  <td><p><a href="//192.168.1.16" target="_blank">TRENDnet</a></p></td>             <td><p>192.168.1.16</p></td> <td><p><span id="online1"></span></p></td>  <td><p><a href="//192.168.1.16" target="_blank">Открыть</a></p></td></tr>
+            <tr class="tr-color1"><td class="td-first"><p>Компьютер</p></td>   <td><p><a href="//192.168.1.8"  target="_blank">HOME</a></p></td>                 <td><p>192.168.1.8</p></td>  <td><p><span id="online2"></span></p></td>  <td><p><a href="//192.168.1.8" target="_blank">Открыть</a></p></td></tr>
+            <tr class="tr-color2"><td class="td-first"><p>Компьютер</p></td>   <td><p><a href="//192.168.1.6"  target="_blank">COMP</a></p></td>                 <td><p>192.168.1.6</p></td>  <td><p><span id="online4"></span></p></td>  <td><p><a href="//192.168.1.6" target="_blank">Открыть</a></p></td></tr>
+            <tr class="tr-color1"><td class="td-first"><p>Компьютер</p></td>   <td><p><a href="//192.168.1.28" target="_blank">COMP2</a></p></td>                <td><p>192.168.1.28</p></td> <td><p><span id="online3"></span></p></td>  <td><p><a href="//192.168.1.28" target="_blank">Открыть</a></p></td></tr>
+            <tr class="tr-color2"><td class="td-first"><p>Принтер</p></td>     <td><p><a href="//192.168.1.18" target="_blank">HP LaserJet</a></p></td>          <td><p>192.168.1.18</p></td> <td><p><span id="online5"></span></p></td>  <td><p><a href="//192.168.1.18" target="_blank">Открыть</a></p></td></tr>            
+            <tr class="tr-color1"><td class="td-first"><p>Контроллер</p></td>  <td><p><a href="//192.168.1.37" target="_blank">Mega</a></p></td>                 <td><p>192.168.1.37</p></td> <td><p><span id="online6"></span></p></td>  <td><p><a href="//192.168.1.37" target="_blank">Открыть</a></p></td></tr>
+            <tr class="tr-color2"><td class="td-first"><p>Контроллер</p></td>  <td><p><a href="//192.168.1.17" target="_blank">Arduino Uno 1</a></p></td>        <td><p>192.168.1.17</p></td> <td><p><span id="online7"></span></p></td>  <td><p><a href="//192.168.1.17" target="_blank">Открыть</a></p></td></tr>            
+            <tr class="tr-color1"><td class="td-first"><p>Контроллер</p></td>  <td><p><a href="//192.168.1.38" target="_blank">Arduino Uno 2</a></p></td>        <td><p>192.168.1.38</p></td> <td><p><span id="online8"></span></p></td>  <td><p><a href="//192.168.1.38" target="_blank">Открыть</a></p></td></tr>
+            <tr class="tr-color2"><td class="td-first"><p>Контроллер</p></td>  <td><p><a href="//192.168.1.19" target="_blank">Laurent</a></p></td>              <td><p>192.168.1.19</p></td> <td><p><span id="online9"></span></p></td>  <td><p><a href="//192.168.1.19" target="_blank">Открыть</a></p></td></tr>            
+            <tr class="tr-color1"><td class="td-first"><p>Сетевой UPS</p></td> <td><p><a href="//192.168.1.14" target="_blank">APC Back-UPS HS 500</a></p></td>  <td><p>192.168.1.14</p></td> <td><p><span id="online10"></span></p></td> <td><p><a href="//192.168.1.14" target="_blank">Открыть</a></p></td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="cell-3">
+        <div class="box">
+          <h3>Сетевые настройки</h3>
+          <form name="form2" onsubmit="return false">
+            <p>IP адрес: &nbsp;&nbsp;<input type="text" class="textfield" size="2" name="ip1" value="...">.<input type="text" class="textfield" size="2" name="ip2" value="...">.<input type="text" class="textfield" size="2" name="ip3" value="...">.<input type="text" class="textfield" size="2" name="ip4" value="..."></p>
+            <p>MAC: <input type="text" class="textfield" size="1" name="mac1" value="..">.<input type="text" class="textfield" size="1" name="mac2" value="..">.<input type="text" class="textfield" size="1" name="mac3" value="..">.<input type="text" class="textfield" size="1" name="mac4" value="..">.<input type="text" class="textfield" size="1" name="mac5" value="..">.<input type="text" class="textfield" size="1" name="mac6" value=".."></p>
+            <input type="submit" class="submit-button" value="Изменить" onclick="GetMyCheck()">
+          </form>
+        </div>
+      </div>      
+      <div style="clear:both"></div>
+    </div>
+  </div> <!-- level -->
+
+%5
+  
+%4 <!-- footer -->
+</body>
+</html>

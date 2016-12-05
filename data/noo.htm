@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+%& <!-- links -->
+  <title>nooLite - Arduino Mega Server</title>
+
+<script>
+  function start() {
+    document.getElementById("hider-1").style.display = "none";
+    document.getElementById("hider-3").style.display = "none";
+    document.getElementById("hider-2").style.display = "none";
+    logoRotator();
+    getDashData();
+    getNoo();
+  }
+
+  var hideInfo1 = true;
+  var hideInfo3 = true;
+  var hideInfo2 = true;
+
+  function showHide1() {
+    if (hideInfo1) {document.getElementById("hider-1").style.display = "block"; hideInfo1 = false;}
+              else {document.getElementById("hider-1").style.display = "none"; hideInfo1 = true;}
+  }
+  function showHide3() {
+    if (hideInfo3) {document.getElementById("hider-3").style.display = "block"; hideInfo3 = false;}
+              else {document.getElementById("hider-3").style.display = "none"; hideInfo3 = true;}
+  }  
+  function showHide2() {
+    if (hideInfo2) {document.getElementById("hider-2").style.display = "block"; hideInfo2 = false;}
+              else {document.getElementById("hider-2").style.display = "none"; hideInfo2 = true;}
+  }
+
+var noo1stt = "";
+var noo2stt = "";
+
+var noo1state = true;
+var noo2state = true;
+
+var noo2Multi_10 = false;
+var noo2Multi_20 = false;
+var noo2Multi_30 = false;
+var noo2Multi_40 = false;
+var noo2Multi_50 = false;
+var noo2Multi_60 = false;
+var noo2Multi_70 = false;
+var noo2Multi_80 = false;
+var noo2Multi_90 = false;
+
+var noo2Multi = "";
+
+var nooChannel = "";
+var nooBind = "";
+
+
+function gliphColor(state) {
+  switch (state) {
+    case "0": return "#555555"; break;
+    case "1": return "#98D52F"; break;
+     default: return "#aaaaaa"; break;
+  }
+}
+
+function textGliphColor(state) {
+  switch (state) {
+    case "0": return "#555555"; break;
+    case "1": return "#98D52F"; break;
+     default: return "#aaaaaa"; break;
+  }
+}
+
+function gliphMultiColor(state) {
+  switch (state) {
+    case "0": return "#999999"; break;
+    case "10": return "#e00"; break;
+    case "20": return "#e00"; break;
+    case "30": return "#e00"; break;
+    case "40": return "#e00"; break;
+    case "50": return "#e00"; break;
+    case "60": return "#e00"; break;
+    case "70": return "#e00"; break;
+    case "80": return "#e00"; break;
+    case "90": return "#e00"; break;
+      default: return "#aaaaaa"; break;
+  }
+}
+
+function getNoo() {
+  var request = new XMLHttpRequest();
+
+  request.onreadystatechange = function() {
+    if (this.readyState == 4) {
+      if (this.status == 200) {
+        if (this.responseXML != null) {
+        
+          try {
+            var n1state = this.responseXML.getElementsByTagName('noo1state')[0].childNodes[0].nodeValue;
+          } catch (err) {
+              n1state = "-";
+            }          
+          try {
+            document.getElementById("noo1-state-gliph").style.color = gliphColor(n1state);
+
+            if (n1state == "1") {
+              noo1state = true;
+            } 
+            else if (n1state == "0") {
+              noo1state = false;
+            } else {
+                document.getElementById("noo1-state-text").style.color = '#555555';
+              }
+          } catch (err) { }
+          
+          try {
+            var n2state = this.responseXML.getElementsByTagName('noo2state')[0].childNodes[0].nodeValue;
+          } catch (err) {
+              n2state = "-";
+            }
+          try {
+            document.getElementById("noo2-state-gliph").style.color = gliphColor(n2state);
+
+            if (n2state == "1") {
+              noo2state = true;
+            } 
+            else if (n2state == "0") {
+              noo2state = false;
+            } else {
+                document.getElementById("noo2-state-text").style.color = '#555555';
+              }
+          } catch (err) { }
+          
+          try {
+            var n2mlt = this.responseXML.getElementsByTagName('noo2multi')[0].childNodes[0].nodeValue;
+          } catch (err) {
+              n2mlt = "-";
+            }
+
+            document.getElementById("noo2-multi10-gliph").style.color = gliphMultiColor("0");
+            document.getElementById("noo2-multi20-gliph").style.color = gliphMultiColor("0");
+            document.getElementById("noo2-multi30-gliph").style.color = gliphMultiColor("0");
+            document.getElementById("noo2-multi40-gliph").style.color = gliphMultiColor("0");
+            document.getElementById("noo2-multi50-gliph").style.color = gliphMultiColor("0");
+            document.getElementById("noo2-multi60-gliph").style.color = gliphMultiColor("0");
+            document.getElementById("noo2-multi70-gliph").style.color = gliphMultiColor("0");
+            document.getElementById("noo2-multi80-gliph").style.color = gliphMultiColor("0");
+            document.getElementById("noo2-multi90-gliph").style.color = gliphMultiColor("0");
+            
+            document.getElementById("noo2-multi10-text").style.color = '#aaaaaa';
+            document.getElementById("noo2-multi20-text").style.color = '#aaaaaa';
+            document.getElementById("noo2-multi30-text").style.color = '#aaaaaa';
+            document.getElementById("noo2-multi40-text").style.color = '#aaaaaa';
+            document.getElementById("noo2-multi50-text").style.color = '#aaaaaa';
+            document.getElementById("noo2-multi60-text").style.color = '#aaaaaa';
+            document.getElementById("noo2-multi70-text").style.color = '#aaaaaa';
+            document.getElementById("noo2-multi80-text").style.color = '#aaaaaa';
+            document.getElementById("noo2-multi90-text").style.color = '#aaaaaa';
+            
+            if (n2mlt == "10") {
+              document.getElementById("noo2-multi10-gliph").style.color = gliphMultiColor(n2mlt);
+              document.getElementById("noo2-multi10-text").style.color = '#555555';
+            } 
+            else if (n2mlt == "20") {
+              document.getElementById("noo2-multi20-gliph").style.color = gliphMultiColor(n2mlt);
+              document.getElementById("noo2-multi20-text").style.color = '#555555';
+            }
+            else if (n2mlt == "30") {
+              document.getElementById("noo2-multi30-gliph").style.color = gliphMultiColor(n2mlt);
+              document.getElementById("noo2-multi30-text").style.color = '#555555';
+            }            
+            else if (n2mlt == "40") {
+              document.getElementById("noo2-multi40-gliph").style.color = gliphMultiColor(n2mlt);
+              document.getElementById("noo2-multi40-text").style.color = '#555555';
+            }            
+            else if (n2mlt == "50") {
+              document.getElementById("noo2-multi50-gliph").style.color = gliphMultiColor(n2mlt);
+              document.getElementById("noo2-multi50-text").style.color = '#555555';
+            }            
+            else if (n2mlt == "60") {
+              document.getElementById("noo2-multi60-gliph").style.color = gliphMultiColor(n2mlt);
+              document.getElementById("noo2-multi60-text").style.color = '#555555';
+            }
+            else if (n2mlt == "70") {
+              document.getElementById("noo2-multi70-gliph").style.color = gliphMultiColor(n2mlt);
+              document.getElementById("noo2-multi70-text").style.color = '#555555';
+            }
+            else if (n2mlt == "80") {
+              document.getElementById("noo2-multi80-gliph").style.color = gliphMultiColor(n2mlt);
+              document.getElementById("noo2-multi80-text").style.color = '#555555';
+            }
+            else if (n2mlt == "90") {
+              document.getElementById("noo2-multi90-gliph").style.color = gliphMultiColor(n2mlt);
+              document.getElementById("noo2-multi90-text").style.color = '#555555';
+            }
+          
+        } // if (this.responseXML != null)
+      } // if (this.status == 200)
+    } // if (this.readyState == 4)
+  } // request.onreadystatechange = function()
+
+  request.open("GET", "request_noo" + noo1stt + noo2stt + noo2Multi + nooChannel + nooBind + randomNoCache(), true);
+  request.send(null);
+  setTimeout('getNoo()', 2000);
+  
+  noo1stt = "";
+  noo2stt = "";
+  
+  nooChannel = "";
+  nooBind = "";
+  noo2Multi = ""; 
+
+} // getNoo()
+
+// actions
+
+function noo1StateAction() {
+  if (noo1state) {
+    document.getElementById("noo1-state-text").style.color = '#aaaaaa';
+    noo1stt = "&noo1state=0";
+  } else {
+      document.getElementById("noo1-state-text").style.color = '#777777';
+      noo1stt = "&noo1state=1";
+    }
+}
+
+function noo2StateAction() {
+  if (noo2state) {
+    document.getElementById("noo2-state-text").style.color = '#aaaaaa';
+    noo2stt = "&noo2state=0";
+  } else {
+      document.getElementById("noo2-state-text").style.color = '#777777';
+      noo2stt = "&noo2state=1";
+    }
+}
+
+function noo2MultiClear() {
+  noo2Multi_10 = false;
+  noo2Multi_20 = false;
+  noo2Multi_30 = false;
+  noo2Multi_40 = false;
+  noo2Multi_50 = false;
+  noo2Multi_60 = false;
+  noo2Multi_70 = false;
+  noo2Multi_80 = false;
+  noo2Multi_90 = false;
+  
+  document.getElementById("noo2-multi10-text").style.color = '#aaaaaa';
+  document.getElementById("noo2-multi20-text").style.color = '#aaaaaa';
+  document.getElementById("noo2-multi30-text").style.color = '#aaaaaa';
+  document.getElementById("noo2-multi40-text").style.color = '#aaaaaa';
+  document.getElementById("noo2-multi50-text").style.color = '#aaaaaa';
+  document.getElementById("noo2-multi60-text").style.color = '#aaaaaa';
+  document.getElementById("noo2-multi70-text").style.color = '#aaaaaa';
+  document.getElementById("noo2-multi80-text").style.color = '#aaaaaa';
+  document.getElementById("noo2-multi90-text").style.color = '#aaaaaa';
+}
+
+function noo2Multi10() {noo2MultiClear(); noo2Multi = "&noo2multi=10"; noo2Multi_10 = true; document.getElementById("noo2-multi10-text").style.color = '#777777';}
+function noo2Multi20() {noo2MultiClear(); noo2Multi = "&noo2multi=20"; noo2Multi_20 = true; document.getElementById("noo2-multi20-text").style.color = '#777777';}
+function noo2Multi30() {noo2MultiClear(); noo2Multi = "&noo2multi=30"; noo2Multi_30 = true; document.getElementById("noo2-multi30-text").style.color = '#777777';}
+function noo2Multi40() {noo2MultiClear(); noo2Multi = "&noo2multi=40"; noo2Multi_40 = true; document.getElementById("noo2-multi40-text").style.color = '#777777';}
+function noo2Multi50() {noo2MultiClear(); noo2Multi = "&noo2multi=50"; noo2Multi_50 = true; document.getElementById("noo2-multi50-text").style.color = '#777777';}
+function noo2Multi60() {noo2MultiClear(); noo2Multi = "&noo2multi=60"; noo2Multi_60 = true; document.getElementById("noo2-multi60-text").style.color = '#777777';}
+function noo2Multi70() {noo2MultiClear(); noo2Multi = "&noo2multi=70"; noo2Multi_70 = true; document.getElementById("noo2-multi70-text").style.color = '#777777';}
+function noo2Multi80() {noo2MultiClear(); noo2Multi = "&noo2multi=80"; noo2Multi_80 = true; document.getElementById("noo2-multi80-text").style.color = '#777777';}
+function noo2Multi90() {noo2MultiClear(); noo2Multi = "&noo2multi=90"; noo2Multi_90 = true; document.getElementById("noo2-multi90-text").style.color = '#777777';}
+
+function nooBindAction() {
+  nooChannel = "&nooChannel=" + document.getElementById("channel").value;
+  nooBind =    "&nooBind="    + nooBindForm.bindUnbind.value;
+}
+  
+%# // scripts.js
+</script>
+</head>
+
+<body onload="start();">
+
+%1 <!-- header -->
+%2 <!-- dash -->
+%3 <!-- menu -->
+  <div class="level">
+    <div class="block">
+      <h1 class="title-page">NOOLITE</h1>
+      <div class="level-title clickable" onclick="showHide1()">
+        <h2>Блок 1</h2>
+        <img src="a-show.png" alt="">
+      </div>
+      <div id="hider-1">
+        <div class="cell-5">
+          <div class="box-control" id="noo1box" onclick="noo1StateAction()">
+            <h3 class="gliph-control" id="noo1-state-gliph">☼</h3>
+            <p id="noo1-state-text">nooLite 1</p>
+          </div>
+        </div>
+        <div style="clear:both"></div>        
+      </div>
+      <div style="clear:both"></div>
+    </div>
+  </div> <!-- level -->
+
+  <div class="level">
+    <div class="block">
+      <div class="level-title clickable" onclick="showHide3()">
+        <h2>Блок 2</h2>
+        <img src="a-show.png" alt="">
+      </div>
+      <div id="hider-3">
+        <div class="cell-5">
+          <div class="box-control" id="noo2box" onclick="noo2StateAction()">
+            <p class="gliph-control" id="noo2-state-gliph">☼</p>
+            <p id="noo2-state-text">nooLite 2</p>
+          </div>
+        </div>
+        <div class="cell-5">
+        <div class="box-control-multi-base">
+          <div class="cell-3">
+            <div class="box-control-multi" id="noo2multi10" onclick="noo2Multi10()">
+              <p id="noo2-multi10-text">10%</p>            
+              <p class="gliph-control-multi" id="noo2-multi10-gliph">▀</p>
+            </div>
+          </div>
+          <div class="cell-3">
+            <div class="box-control-multi" id="noo2multi20" onclick="noo2Multi20()">
+              <p id="noo2-multi20-text">20%</p>            
+              <p class="gliph-control-multi" id="noo2-multi20-gliph">▀</p>
+            </div>
+          </div>
+          <div class="cell-3">
+            <div class="box-control-multi" id="noo2multi30" onclick="noo2Multi30()">
+              <p id="noo2-multi30-text">30%</p>
+              <p class="gliph-control-multi" id="noo2-multi30-gliph">▀</p>
+            </div>
+          </div>
+          <div style="clear:both"></div>
+          <div class="cell-3">
+            <div class="box-control-multi" id="noo2multi40" onclick="noo2Multi40()">
+              <p id="noo2-multi40-text">40%</p>
+              <p class="gliph-control-multi" id="noo2-multi40-gliph">▀</p>
+            </div>
+          </div>
+          <div class="cell-3">
+            <div class="box-control-multi" id="noo2multi50" onclick="noo2Multi50()">
+              <p id="noo2-multi50-text">50%</p>
+              <p class="gliph-control-multi" id="noo2-multi50-gliph">▀</p>
+            </div>
+          </div>
+          <div class="cell-3">
+            <div class="box-control-multi" id="noo2multi60" onclick="noo2Multi60()">
+              <p id="noo2-multi60-text">60%</p>
+              <p class="gliph-control-multi" id="noo2-multi60-gliph">▀</p>
+            </div>
+          </div>
+          <div style="clear:both"></div>
+          <div class="cell-3">
+            <div class="box-control-multi" id="noo2multi70" onclick="noo2Multi70()">
+              <p id="noo2-multi70-text">70%</p>
+              <p class="gliph-control-multi" id="noo2-multi70-gliph">▀</p>
+            </div>
+          </div>
+          <div class="cell-3">
+            <div class="box-control-multi" id="noo2multi80" onclick="noo2Multi80()">
+              <p id="noo2-multi80-text">80%</p>
+              <p class="gliph-control-multi" id="noo2-multi80-gliph">▀</p>
+            </div>
+          </div>
+          <div class="cell-3">
+            <div class="box-control-multi" id="noo2multi90" onclick="noo2Multi90()">
+              <p id="noo2-multi90-text">90%</p>
+              <p class="gliph-control-multi" id="noo2-multi90-gliph">▀</p>
+            </div>
+          </div>
+          <div style="clear:both"></div>     
+          </div>
+        </div>
+        <div style="clear:both"></div>
+      </div>
+      <div style="clear:both"></div>
+    </div>
+  </div> <!-- level -->  
+  
+  <div class="level">
+    <div class="block">
+      <div class="level-title clickable" onclick="showHide2()">
+        <h2>Привязка</h2>
+        <img src="a-show.png" alt="">
+      </div>
+      <div id="hider-2">
+        <div class="cell-3">
+          <div class="box">
+            <h3>Привязка блока</h3>
+            <form id="nooBindFormId" name="nooBindForm">
+              <select size="1" id="channel" name="channels1">
+                <option value="0">0 канал</option>
+                <option value="1">1 канал</option>
+                <option value="2">2 канал</option>
+                <option value="3">3 канал</option>
+                <option value="4">4 канал</option>
+                <option value="5">5 канал</option>
+                <option value="6">6 канал</option>
+                <option value="7">7 канал</option>
+                <option value="8">8 канал</option>
+                <option value="9">9 канал</option>
+                <option value="10">10 канал</option>
+                <option value="11">11 канал</option>
+                <option value="12">12 канал</option>
+                <option value="13">13 канал</option>
+                <option value="14">14 канал</option>
+                <option value="15">15 канал</option>
+                <option value="16">16 канал</option>
+                <option value="17">17 канал</option>
+                <option value="18">18 канал</option>
+                <option value="19">19 канал</option>
+                <option value="20">20 канал</option>
+                <option value="21">21 канал</option>
+                <option value="22">22 канал</option>
+                <option value="23">23 канал</option>
+                <option value="24">24 канал</option>
+                <option value="25">25 канал</option>
+                <option value="26">26 канал</option>
+                <option value="27">27 канал</option>
+                <option value="28">28 канал</option>
+                <option value="29">29 канал</option>
+                <option value="30">30 канал</option>
+                <option value="31">31 канал</option>
+              </select>
+
+              <div class="input-radio">
+                <p><input type="radio" name="bindUnbind" id="nooBind" value="1" checked="checked"/> Привязать</p>
+                <p><input type="radio" name="bindUnbind" id="nooUnbind" value="0" /> Отвязать</p>
+              </div>
+
+              <input type="button" value="Отправить" onclick="nooBindAction()">
+            </form>
+          </div>
+        </div>
+        <div class="cell-3">
+          <div class="box">
+            <h3>Привязка</h3>
+            <p>1. Нажмите кнопку на выбранном блоке и светодиод замигает раз в секунду.</p>
+            <p>2. Выберите номер канала и пошлите команду «привязка», нажав на кнопку. Светодиод замигает чаще.</p>
+            <p>3. Снова нажмите кнопку на блоке и подтвердите привязку.</p>
+          </div>
+        </div>
+         <div class="cell-3">
+          <div class="box">
+            <h3>Отвязка</h3>
+            <p>1. Выберите номер канала и пошлите команду «отвязка», нажав на кнопку.</p>
+            <p>2. Далее, в течение 15 секунд, нажмите кнопку на блоке и подтвердите отвязку выбранного блока.</p>
+          </div>
+        </div>       
+        <script>
+          function selectAlert() {
+            alert("Канал: " + document.getElementById("channel").value +
+             "\nКоманда: " + nooBindForm.bindUnbind.value);
+          }
+        </script>
+
+      </div> <!-- hider-2 -->
+      <div style="clear:both"></div>
+    </div>
+  </div> <!-- level -->
+
+%5
+
+%4 <!-- footer -->
+</body>
+</html>

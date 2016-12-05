@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+%& <!-- links -->
+  <title>Порты и подключения - Arduino Mega Server</title>
+  
+<script>
+  function start() {
+    logoRotator();
+    getDashData();    
+  }
+
+  var showAjaxInfo = false;
+
+  function hideAjaxInfo() {
+    if (showAjaxInfo) {
+      document.getElementById("ajax-request").style.display  = "none";
+      document.getElementById("ajax-response").style.display = "none";
+      showAjaxInfo = false;
+    } else {
+        document.getElementById("ajax-request").style.display  = "inline-block";
+        document.getElementById("ajax-response").style.display = "inline-block";
+        showAjaxInfo = true;
+      }
+  }
+
+%# // scripts.js
+var currentPage = 'ports-page';
+</script>
+</head>
+
+<body onload="start();">
+%1 <!-- header -->
+%2 <!-- dash -->
+%3 <!-- menu -->
+  <div class="level">
+    <div class="block">
+      <h1 class="title-page">ПОРТЫ И ПОДКЛЮЧЕНИЯ</h1>
+      <div style="clear:both"></div>
+    </div>
+  </div> <!-- level -->
+
+  <div class="level">
+    <div class="block">
+      <div class="level-title">
+        <h2>Состояние портов</h2>
+      </div>
+      <div class="cell-1">
+        <div class="box">
+          <div class="cell-2 auto">
+            <h3>Схема подключений и состояние портов модуля ESP-8266 в реальном времени</h3>
+            <p>Все подключения к плате микроконтроллера с пояснениями и состояние всех портов в реальном времени. Указаны тип порта, назначение, состояние, номер внешнего контакта и связанный с портом логический объект. Обновление раз в секунду.</p>
+          </div>
+          <div style="clear:both"></div>
+          <div class="cell-3 top-90 bottom-10">
+            <table class="table-pins">
+              <tr><td><p class="pin voltage">VCC</p></td> <td><p class="pin connect">-</p></td>     <td><p class="pin result" id="pinRST">...</p></td>  <td><p class="pin connect">10K</p></td>   <td><p class="pin connect">RESET</p></td></tr>
+              <tr><td><p class="pin analog1">-</p></td>   <td><p class="pin analog1">-</p></td>     <td><p class="pin analog1" id="A0">...</p></td>     <td><p class="pin analog1">-</p></td>     <td><p class="pin analog1">A0</p></td></tr>
+              <tr><td><p class="pin voltage">VCC</p></td> <td><p class="pin key">-</p></td>         <td><p class="pin result" id="pinCHPD">...</p></td> <td><p class="pin key">10K</p></td>       <td><p class="pin key">CHPD</p></td></tr>
+              <tr><td><p class="pin empty">-</p></td>     <td><p class="pin channel">SLEEP</p></td> <td><p class="pin result" id="D16">...</p></td>     <td><p class="pin empty">-</p></td>       <td><p class="pin digital">D16</p></td></tr>
+              <tr><td><p class="pin empty">-</p></td>     <td><p class="pin power">SCK</p></td>     <td><p class="pin result" id="D14">...</p></td>     <td><p class="pin empty">-</p></td>       <td><p class="pin digital">D14</p></td></tr>
+              <tr><td><p class="pin empty">-</p></td>     <td><p class="pin power">MISO</p></td>    <td><p class="pin result" id="D12">...</p></td>     <td><p class="pin empty">-</p></td>       <td><p class="pin digital">D12</p></td></tr>
+              <tr><td><p class="pin empty">-</p></td>     <td><p class="pin power">MOSI</p></td>    <td><p class="pin result" id="D13">...</p></td>     <td><p class="pin empty">-</p></td>       <td><p class="pin digital">D13</p></td></tr>
+              <tr><td><p class="pin voltage">-</p></td>   <td><p class="pin voltage">-</p></td>     <td><p class="pin voltage">-</p></td>               <td><p class="pin voltage">3.3 V</p></td> <td><p class="pin voltage">VCC</p></td></tr>
+            </table>
+          </div>
+          <div class="cell-3">
+            <div class="box-image">
+              <img class="auto" src="esp-12.png" alt="">
+            </div>
+          </div>
+          <div class="cell-3 top-90 bottom-10">
+            <table class="table-pins">
+              <tr><td><p class="pin digital">D1</p></td>  <td><p class="pin serial">TX</p></td>    <td><p class="pin result" id="D1">...</p></td>  <td><p class="pin serial">TX0</p></td>   <td><p class="pin serial">-</p></td></tr>
+              <tr><td><p class="pin digital">D3</p></td>  <td><p class="pin serial">RX</p></td>    <td><p class="pin result" id="D3">...</p></td>  <td><p class="pin serial">RX0</p></td>   <td><p class="pin serial">-</p></td></tr>
+              <tr><td><p class="pin digital">D5</p></td>  <td><p class="pin empty">-</p></td>      <td><p class="pin result" id="D5">...</p></td>  <td><p class="pin ethernet">SCL</p></td> <td><p class="pin empty">-</p></td></tr>
+              <tr><td><p class="pin digital">D4</p></td>  <td><p class="pin empty">-</p></td>      <td><p class="pin result" id="D4">...</p></td>  <td><p class="pin ethernet">SDA</p></td> <td><p class="pin empty">-</p></td></tr>
+              <tr><td><p class="pin digital">D0</p></td>  <td><p class="pin one-wire">10K</p></td> <td><p class="pin result" id="D0">...</p></td>  <td><p class="pin one-wire">PRG</p></td> <td><p class="pin voltage">VCC</p></td></tr>
+              <tr><td><p class="pin digital">D2</p></td>  <td><p class="pin empty">-</p></td>      <td><p class="pin result" id="D2">...</p></td>  <td><p class="pin serial">TX0*</p></td>  <td><p class="pin empty">-</p></td></tr>
+              <tr><td><p class="pin digital">D15</p></td> <td><p class="pin led">10K</p></td>      <td><p class="pin result" id="D15">...</p></td> <td><p class="pin led">-</p></td>        <td><p class="pin led">GND</p></td></tr>
+              <tr><td><p class="pin led">GND</p></td>     <td><p class="pin led">GND</p></td>      <td><p class="pin led">-</p></td>               <td><p class="pin led">-</p></td>        <td><p class="pin led">-</p></td></tr>
+            </table>
+          </div>
+          <div style="clear:both"></div>
+          <div class="cell-3 auto">
+            <table class="table-pins">
+              <tr><td><p class="pin power">CS0</p></td>   <td><p class="pin power">-</p></td> <td><p class="pin result" id="pinCS0">...</p></td>  <td><p class="pin power">CS0</p></td>  <td><p class="pin power">-</p></td></tr>
+              <tr><td><p class="pin power">MISO</p></td>  <td><p class="pin power">-</p></td> <td><p class="pin result" id="pinMISO">...</p></td> <td><p class="pin power">MISO</p></td> <td><p class="pin power">-</p></td></tr>
+              <tr><td><p class="pin digital">D9</p></td>  <td><p class="pin empty">-</p></td> <td><p class="pin result" id="D9">...</p></td>      <td><p class="pin empty">-</p></td>    <td><p class="pin empty">-</p></td></tr>
+              <tr><td><p class="pin digital">D10</p></td> <td><p class="pin empty">-</p></td> <td><p class="pin result" id="D10">...</p></td>     <td><p class="pin empty">-</p></td>    <td><p class="pin empty">-</p></td></tr>
+              <tr><td><p class="pin power">MOSI</p></td>  <td><p class="pin power">-</p></td> <td><p class="pin result" id="pinMOSI">...</p></td> <td><p class="pin power">MOSI</p></td> <td><p class="pin power">-</p></td></tr>
+              <tr><td><p class="pin power">SCLK</p></td>  <td><p class="pin power">-</p></td> <td><p class="pin result" id="pinSCLK">...</p></td> <td><p class="pin power">SCLK</p>      <td><p class="pin power">-</p></td></tr>
+              </table>
+          </div>
+          <div style="clear:both"></div>
+        </div>
+      </div>
+      <div style="clear:both"></div>
+    </div>
+  </div> <!-- level -->
+
+  <div class="level">
+    <div class="block">
+      <div class="level-title clickable" onclick="hideAjaxInfo()">
+        <h2>Отладка Ajax запросов</h2>
+        <img src="a-show.png" alt="">
+      </div>
+      <div class="cell-2" id="ajax-request">
+        <div class="box">
+          <h3>Запросы браузера</h3>
+          <p>Запрос: <span class="value" id="get-ports-request">...</span></p>
+         </div>
+      </div>
+      <div class="cell-2" id="ajax-response">
+        <div class="box">
+          <h3>Ответы модуля</h3>
+          <p>Ответ: <span class="value" id="get-ports-response">...</span></p>
+         </div>
+      </div>
+      <div style="clear:both"></div>
+    </div>
+  </div> <!-- level -->
+
+%5
+  
+%4 <!-- footer -->
+</body>
+</html>

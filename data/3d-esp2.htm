@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <script src="three.js"></script>
+
+%& <!-- links -->
+  <title>ESP8266 real 3D demo - Arduino Mega Server</title>
+
+<style>
+  body {
+    background: #c80001;
+  }
+
+  .full-screen {
+    color: #fff;
+    background: #c80001;
+    background-size: 100% 100%;
+  }    
+  
+  .intel-lite1 {
+    color: #fff;
+  }
+</style>
+
+<script>
+  function start() {
+    //getFull2Data();
+  }
+
+%# // scripts.js
+</script>
+</head>
+
+<body onload="start();">
+  <div id="page_loading" class="light">
+    <div class="loader"><div><div></div></div></div>
+  </div>
+  
+  <div class="level-full full-screen">
+    <div class="cell-2">
+      <div id="container"></div>
+    </div>
+    <div class="cell-2">
+      <div class="box-image">
+        <img class="auto" src="esp-logo.png" alt="">
+        <div class="box-info auto" style="max-width:320px; padding-left: 5px;">
+          <h2 class="intel-lite1">ESP8266 3D worlds demo</h2>
+          <p>Demonstration 3D interactive worlds on ESP8266 modul. Objects can be “live” and communicate with another objects on other controllers. It's a new type visualization and interface for your Arduino projects</p>
+          <br>
+          <p class="intel-lite1">Powered by Arduino Mega Server</p>
+        </div>
+      </div>
+    </div>
+    <div style="clear:both"></div>
+  </div> <!-- level -->
+
+  <div class="panel">
+    <div class="action-panel">
+      <p>.</p>
+    </div>
+    <div class="hidden-panel">
+      <div class="cell-3">
+        <a href="javascript:history.back();">Back</a>
+        <a href="javascript:history.forward();">Forward</a>
+      </div>
+      <div class="cell-3">
+        <a href="/">Home</a>
+      </div>
+      <div class="cell-3">
+        <a href="3d-esp3.htm">Next</a>
+      </div>
+      <div style="clear:both"></div>
+    </div>
+  </div> <!-- panel -->
+  
+    <script>
+      var camera, scene, renderer;
+      var geometry, group;
+      var mouseX = 0, mouseY = 0;
+      var windowHalfX = window.innerWidth / 2;
+      var windowHalfY = window.innerHeight / 2;
+
+      document.addEventListener('mousemove', onDocumentMouseMove, false);
+
+      init();
+      animate();
+
+      function init() {
+        var container = document.getElementById('container');
+
+        camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 10000);
+        camera.position.z = 500;
+
+        scene = new THREE.Scene();
+
+        var geometry = new THREE.CubeGeometry(100, 100, 100);
+        var material = new THREE.MeshNormalMaterial( { overdraw: 0.5 } );
+
+        group = new THREE.Object3D();
+
+        for (var i = 0; i < 200; i ++) {
+          var mesh = new THREE.Mesh(geometry, material);
+          mesh.position.x = Math.random() * 2000 - 1000;
+          mesh.position.y = Math.random() * 2000 - 1000;
+          mesh.position.z = Math.random() * 2000 - 1000;
+          mesh.rotation.x = Math.random() * 2 * Math.PI;
+          mesh.rotation.y = Math.random() * 2 * Math.PI;
+          mesh.matrixAutoUpdate = false;
+          mesh.updateMatrix();
+          group.add(mesh);
+        }
+
+        scene.add(group);
+        renderer = new THREE.CanvasRenderer();
+        renderer.setSize(window.innerWidth-5, window.innerHeight-5);
+        renderer.sortObjects = false;
+        container.appendChild( renderer.domElement );
+        window.addEventListener('resize', onWindowResize, false);
+      }
+
+      function onWindowResize() {
+        windowHalfX = window.innerWidth-5 / 2;
+        windowHalfY = window.innerHeight-5 / 2;
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth-5, window.innerHeight-5);
+      }
+
+      function onDocumentMouseMove(event) {
+        mouseX = (event.clientX - windowHalfX) * 10;
+        mouseY = (event.clientY - windowHalfY) * 10;
+      }
+
+      function animate() {
+        requestAnimationFrame(animate);
+        render();
+      }
+
+      function render() {
+        camera.position.x += (  mouseX - camera.position.x) * .05;
+        camera.position.y += (- mouseY - camera.position.y) * .05;
+        camera.lookAt(scene.position);
+
+        var currentSeconds = Date.now();
+        group.rotation.x = Math.sin(currentSeconds * 0.0007) * 0.5;
+        group.rotation.y = Math.sin(currentSeconds * 0.0003) * 0.5;
+        group.rotation.z = Math.sin(currentSeconds * 0.0002) * 0.5;
+        renderer.render(scene, camera);
+      }
+    </script>
+</body>
+</html>

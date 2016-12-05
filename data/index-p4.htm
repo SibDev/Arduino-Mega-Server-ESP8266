@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+%& <!-- links -->
+  <title>nooLite - Arduino Mega Server</title>
+
+<script>
+  function start() {
+    genNumber();
+    getDashData();    
+  }
+  
+%# // scripts.js
+</script>
+</head>
+
+<body onload="start();">
+%1 <!-- header -->
+%2 <!-- dash -->
+%3 <!-- menu -->
+  <div class="level">
+    <div class="block bottom-40">
+      <h1 class="title-page">NOOLITE</h1>
+      <div class="box-image">
+        <img class="auto" src="noolink.jpg" alt="">
+      </div>
+      <div style="clear:both"></div>   
+    </div>
+  </div> <!-- level -->
+
+  <div class="level themes">
+    <div class="block">
+      <div class="cell-2">
+        <div class="box-info">
+          <div class="height-40"></div>
+          <h2 class="text-big alt2">Что такое nooLite?</h2>
+          <p class="lead">Это гениальная система беспроводного управления для вашего дома. Управление освещением и электроприборами при помощи настенных выключателей, переносных пультов, компьютера или вашего смартфона</p>
+        </div>
+      </div>
+      <div class="cell-2">
+        <div class="box-image">
+          <img src="noo-20a.jpg" alt="">
+        </div>
+      </div>
+      <div style="clear:both"></div>   
+    </div>
+  </div> <!-- level -->    
+  
+  <div class="level">
+    <div class="block top-80 bottom-60">
+      <div class="cell-3">
+        <div class="box-image">
+          <img src="npult.jpg" alt="">
+          <div class="box-info">
+            <h3 class="center">Пульты управления</h3>
+            <p>Оборудование nooLite состоит из пультов беспроводного управления, выполненных в виде настенных выключателей и носимых миниатюрных пультов</p>
+          </div>
+        </div>
+      </div>
+      <div class="cell-3">
+        <div class="box-image">
+          <img src="nblock.jpg" alt="">
+          <div class="box-info">
+            <h3 class="center">Силовые блоки</h3>
+            <p>А также силовых блоков, предназначенных для управления силовыми нагрузками освещения, электроприборами, светодиодными лентами и т. п.</p>
+          </div>
+        </div>
+      </div>
+      <div class="cell-3">
+        <div class="box-image">
+          <img src="nsensor.jpg" alt="">
+          <div class="box-info">
+            <h3 class="center">Датчики</h3>
+            <p>И сенсоров температуры, влажности и присутствия людей в помещении, которые позволяют автоматически управлять силовыми блоками</p>
+          </div>
+        </div>
+      </div>
+      <div style="clear:both"></div>   
+    </div>
+  </div> <!-- level -->  
+
+  <div class="level noos1">
+    <div class="block">
+      <div class="cell-2">
+        <div class="box-image">
+          <img src="noo-03a.jpg" alt="">
+        </div>
+      </div>    
+      <div class="cell-2">
+        <div class="box-info">
+          <div class="height-40"></div>
+          <h2 class="text-big alt2">Установка за 5&nbsp;минут</h2>
+          <p class="lead">Вся работа по установке управления светом и приборами сводится к подсоединению блоков и нажатию кнопок на пульте и силовом блоке. Про штробление стен и прокладку кабелей можно забыть!</p>
+        </div>
+      </div>
+      <div style="clear:both"></div>   
+    </div>
+  </div> <!-- level -->  
+  
+  <div class="level">
+    <div class="block top-70">
+      <div class="cell-2">
+        <div class="box-info">
+          <div class="height-40"></div>
+          <h2 class="text-big alt4">Управление с вашего смартфона</h2>
+          <p class="lead">Следуя актуальным тенденциям сегодняшнего дня, система nooLite позволяет управлять домом прямо с экрана вашего смартфона</p>
+        </div>
+      </div>
+      <div class="cell-2">
+        <div class="box-image">
+          <img src="nsmart.jpg" alt=""> 
+        </div>
+      </div>
+      <div style="clear:both"></div>
+    </div>
+  </div> <!-- level -->  
+  
+  <div class="level themes">
+    <div class="block">
+      <div class="cell-2">
+        <div class="box-image">
+          <img src="pr1132.jpg" alt="">
+        </div>
+      </div>
+      <div class="cell-2">
+          <div class="box-info">
+            <div class="height-60"></div>
+            <h3 class="text-big alt2">Умный дом</h3>
+            <p class="lead">Центральный блок PR1132 делает ваш дом умным и позволяет управлять оборудованием с компьютера, получать данные с датчиков, а также ещё многое и многое другое</p>
+          </div>
+      </div>      
+      <div style="clear:both"></div>   
+    </div>
+  </div> <!-- level -->  
+  
+  <a name="dis"></a>
+  <div class="level">
+    <div class="block top-90">
+      <div class="cell-5x2">
+        <div class="box-image">
+          <img src="mt1132.jpg" alt="">
+        </div>
+      </div>
+      <div class="cell-5x3">
+        <div class="box-info">
+          <p class="text-big alt4">Интеграция с Arduino Mega Server</p>
+          <p>Arduino Mega Server имеет встроенную поддержку модуля <strong>nooLite MT1132</strong>, который позволяет управлять силовыми блоками системы nooLite. Вы можете легко, прямо с веб-странички, «привязывать» и «отвязывать» силовые блоки и управлять ими из системы Arduino Mega Server</p>
+        </div>
+      </div>      
+      <div style="clear:both"></div>
+    </div>
+  </div> <!-- level -->  
+  
+  <div class="level">
+    <div class="block top-30 bottom-60">
+      <div class="level-title">
+        <h2>Интерфейс</h2>
+      </div>
+      <div class="height-20"></div>
+      <div class="cell-3">
+        <div class="box-image">
+          <img src="nooint1.png" alt="">
+          <div class="box-info">
+            <h3 class="center">Интеллигентная привязка</h3>
+            <p>Для «привязки» и «отвязки» силовых блоков вам достаточно выбрать канал и нажать на кнопку в веб-интерфейсе</p>
+          </div>
+        </div>
+      </div>
+      <div class="cell-3">
+        <div class="box-image">
+          <img src="nooint2.png" alt="">
+          <div class="box-info">
+            <h3 class="center">Кнопки в интерфейсе</h3>
+            <p>Управление приборами и освещением осуществляется простым нажатием на кнопки-плитки на веб-страницах</p>
+          </div>
+        </div>
+      </div>
+      <div class="cell-3">
+        <div class="box-image">
+          <img src="nooint3.png" alt="">
+          <div class="box-info">
+            <h3 class="center">Установка мощности</h3>
+            <p>Регулировка параметров и установка значений производится при помощи удобных элементов интерфейса</p>
+          </div>
+        </div>
+      </div>
+      <div style="clear:both"></div>   
+    </div>
+  </div> <!-- level -->  
+  
+  <div class="level noos1">
+    <div class="block">
+      <div class="cell-2">
+        <div class="box-image">
+          <img src="noo-14a.jpg" alt="">
+        </div>
+      </div>    
+      <div class="cell-2">
+        <div class="box-info">
+          <div class="height-40"></div>
+          <h2 class="text-big alt2">А nooLite + AMS — это вообще отлично</h2>
+          <p class="lead">Узнать больше о системе <strong>nooLite</strong> и приобрести оборудование вы можете, посетив ресурсы компании <strong>«Ноотехника»</strong> в Интернет</p>
+        </div>
+      </div>
+      <div style="clear:both"></div>   
+    </div>
+  </div> <!-- level -->   
+  
+  <div class="level">
+    <div class="block top-40 bottom-10">
+      <div class="cell-2">
+        <a href="//www.noo.com.by/" target="_blank">
+        <div class="box">
+          <h3>Официальный сайт</h3>
+          <div class="box-image">
+            <img src="nootech.jpg" alt="">
+          </div>  
+          <br>
+          <p>Официальный сайт компании «Ноотехника», на котором вы можете ознакомиться с продукцией компании (а это не только nooLite!), скачать документацию и найти координаты официальных дилеров для вашего региона</p>
+          <img class="auto" src="click.png" alt="">
+        </div>
+        </a>
+      </div>
+      <div class="cell-2">
+      <a href="//noolite.by/" target="_blank">
+        <div class="box">
+          <h3>О nooLite простыми словами</h3>
+            <div class="box-image">
+              <img src="logo-p4.jpg" alt="">
+            </div>
+          <p>Одностраничный сайт, который простыми словами рассказывает о системе nooLite, об оборудовании и простых схемах его применения. Много красивой графики и понятные примеры использования</p>
+          <img class="auto" src="click.png" alt="">
+        </div>
+        </a>
+      </div>
+      <div style="clear:both"></div>
+    </div>
+  </div> <!-- level -->
+  
+%4 <!-- footer -->
+</body>
+</html>

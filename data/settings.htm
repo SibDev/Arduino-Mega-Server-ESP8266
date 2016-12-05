@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  %& <!-- links -->
+  <title>Основные настройки - Arduino Mega Server</title>
+
+<script>
+  function start() {
+    document.getElementById("hider-2").style.display = "none";
+    logoRotator();
+    getDashData();
+    cycleSettings();
+  }
+
+  // XML
+  
+  var strLED1 = "";
+  var strLED2 = "";
+  var reload = false;
+  var oldWorkMode = "";
+  var oldAuthMode = "";
+
+  function cycleSettings() {
+    var request = new XMLHttpRequest();
+    request.onreadystatechange = function() {
+      if (this.readyState == 4) {
+        if (this.status == 200) {
+          if (this.responseXML != null) {
+            // net activ
+            insertTick(30, bufferCpuLoad2);
+          
+            // Work Mode One/Major
+            try {
+              var workMode = this.responseXML.getElementsByTagName('LED')[0].childNodes[0].nodeValue;
+            } catch (err) {
+                  workMode = oldWorkMode;
+                }
+            if (oldWorkMode != "" && oldWorkMode != workMode) {reload = true;}
+          
+            if (workMode === "checked") {
+              document.LED_form.LED1.checked = true;
+            } else {
+                document.LED_form.LED1.checked = false;
+              }
+            oldWorkMode = workMode;
+
+            // Auth mode
+            var authMode = this.responseXML.getElementsByTagName('LED2')[0].childNodes[0].nodeValue;
+          
+            if (oldAuthMode != "" && oldAuthMode != authMode) {reload = true;}
+          
+            if (authMode === "checked") {
+              document.LED_form.LED2.checked = true;
+            } else {
+                document.LED_form.LED2.checked = false;
+              }
+          oldAuthMode = authMode;
+          } // if (this.responseXML != null)
+        } // if (this.status == 200)
+      } // if (this.readyState == 4)
+    } // request.onreadystatechange = function()
+
+    if (reload) {
+      reload = false;
+      alert('Сейчас режим работы будет изменён. Перезагрузка может занять несколько секунд...')
+      location.reload();
+    }
+
+    // send HTTP GET request with strCommands
+    request.open("GET", "request_settings" + strLED1 + strLED2 +randomNoCache(), true);
+    request.send(null);
+    setTimeout('cycleSettings()', 2000);
+    strLED1 = "";
+    strLED2 = "";
+  } // cycleSettings()
+
+  function GetCheck() {
+    if (LED_form.LED1.checked) {
+      strLED1 = "&LED1=1";
+    } else {
+        strLED1 = "&LED1=0";
+      }
+  }
+
+  function GetCheck2() {
+    if (LED_form.LED2.checked) {
+      strLED2 = "&LED2=1";
+    } else {
+        strLED2 = "&LED2=0";
+      }
+  }
+  
+  // hiders
+  
+  var hideInfo1 = false;
+  var hideInfo2 = true;
+
+  function showHide1() {
+    if (hideInfo1) {document.getElementById("hider-1").style.display = "block"; hideInfo1 = false;}
+              else {document.getElementById("hider-1").style.display = "none"; hideInfo1 = true;}
+  }
+  function showHide2() {
+    if (hideInfo2) {document.getElementById("hider-2").style.display = "block"; hideInfo2 = false;}
+              else {document.getElementById("hider-2").style.display = "none"; hideInfo2 = true;}
+  }
+
+%# // scripts.js
+var currentPage = 'settings-page';
+</script>
+</head>
+
+<body onload="start();">
+%1 <!-- header -->
+%2 <!-- dash -->
+%3 <!-- menu -->
+  <div class="level">
+    <div class="block">
+      <h1 class="title-page">НАСТРОЙКИ</h1>
+      <div class="level-title clickable" onclick="showHide1()">
+        <h2>...</h2>
+        <img src="a-show.png" alt="">
+      </div>
+      <div id="hider-1">
+       <form id="check_LEDs" name="LED_form">
+        <div class="cell-2">
+          <div class="box">
+            <h3>...</h3>
+              <p><input type="checkbox" name="LED1" value="0" onclick="GetCheck()" /> ...</p>
+              <p>...</p><br>
+          </div>
+        </div>
+        <div class="cell-2">
+          <div class="box">
+            <h3>Авторизация</h3>
+              <p><input type="checkbox" name="LED2" value="0" onclick="GetCheck2()" /> Требуется авторизация логин/пароль</p>
+              <p>Доступ к системе может быть свободным или требовать ввода логина и пароля. По умолчанию это <strong>admin</strong>/<strong>ams</strong> и вы можете изменить эти значения в скетче</p><br>
+          </div>
+        </div>
+       </form>        
+      </div> <!-- hider -->
+      <div style="clear:both"></div>
+    </div>
+  </div> <!-- level -->
+
+  <div class="level">
+    <div class="block">
+      <div class="level-title clickable" onclick="showHide2()">
+        <h2>...</h2>
+        <img src="a-show.png" alt="">
+      </div>
+      <div id="hider-2">
+        <div class="cell-4">
+          <div class="box">
+
+          </div>
+        </div>
+        <div class="cell-4">
+          <div class="box">
+
+          </div>
+        </div>
+        <div class="cell-4">
+          <div class="box">
+
+          </div>
+        </div>
+        <div class="cell-4">
+          <div class="box">
+
+          </div>
+        </div>
+      </div> <!-- hider -->
+      <div style="clear:both"></div>
+    </div>
+  </div> <!-- level   -->
+
+%5
+  
+%4 <!-- footer -->
+</body>
+</html>

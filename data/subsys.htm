@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+%& <!-- links -->
+  <title>Подсистемы - Arduino Mega Server</title>
+
+<script>
+  function start() {
+    document.getElementById("hider-2").style.display = "none";
+    logoRotator();
+    getDashData();
+  }
+
+  var hideInfo1 = false;
+  var hideInfo2 = true;
+
+  function showHide1() {
+    if (hideInfo1) {document.getElementById("hider-1").style.display = "block"; hideInfo1 = false;}
+              else {document.getElementById("hider-1").style.display = "none"; hideInfo1 = true;}
+  }
+  function showHide2() {
+    if (hideInfo2) {document.getElementById("hider-2").style.display = "block"; hideInfo2 = false;}
+              else {document.getElementById("hider-2").style.display = "none"; hideInfo2 = true;}
+  }
+
+%# // scripts.js
+</script>
+</head>
+
+<body onload="start();">
+%1 <!-- header -->
+%2 <!-- dash -->
+%3 <!-- menu -->
+  <div class="level">
+    <div class="block">
+      <h1 class="title-page">ПОДСИСТЕМЫ</h1>
+      <div class="level-title clickable" onclick="showHide1()">
+        <h2>Реальные</h2>
+        <img src="a-show.png" alt="">
+      </div>
+      <div id="hider-1">
+        <div class="cell-1">
+          <div class="box">
+            <h3>Подсистемы ядра</h3>
+            <table class="table-generic">
+              <tr class="tr-title"> <td class="td-first"><p>Название</p></td>               <td><p>Состояние</p></td> <td><p>Отключаемая</p></td> <td><p>Здоровье</p></td> <td><p>Память</p></td></tr>
+              <tr class="tr-color2"><td class="td-first"><p>Ethernet</p></td>               <td><p>работает</p></td>  <td><p>нет</p></td>         <td><p>100</p></td>      <td><p>?</p></td></tr>
+              <tr class="tr-color1"><td class="td-first"><p>Часы реального времени</p></td> <td><p>работает</p></td>  <td><p>нет</p></td>         <td><p>100</p></td>      <td><p>?</p></td></tr>
+              <tr class="tr-color2"><td class="td-first"><p>Сервер</p></td>                 <td><p>работает</p></td>  <td><p>нет</p></td>         <td><p>100</p></td>      <td><p>?</p></td></tr>
+              <tr class="tr-color1"><td class="td-first"><p>Serial Upload</p></td>          <td><p>работает</p></td>  <td><p>да</p></td>          <td><p>100</p></td>      <td><p>?</p></td></tr>
+            </table>
+          </div>
+        </div>          
+        <div class="cell-1">
+          <div class="box">
+            <h3>Пользовательские подсистемы</h3>
+            <table class="table-generic">
+              <tr class="tr-title"> <td class="td-first"><p>Название</p></td> <td><p>Состояние</p></td> <td><p>Отключаемая</p></td> <td><p>Здоровье</p></td> <td><p>Память</p></td></tr>
+              <tr class="tr-color2"><td class="td-first"><p>SD card</p></td>  <td><p>работает</p></td>  <td><p>да</p></td>         <td><p>100</p></td>       <td><p>192</p></td></tr>
+            </table>
+          </div>
+        </div>             
+        <div class="cell-1">
+          <div class="box">            
+            <h3>Сенсорные подсистемы</h3>
+            <table class="table-generic">
+              <tr class="tr-title"> <td class="td-first"><p>Название</p></td>    <td><p>Состояние</p></td> <td><p>Отключаемая</p></td> <td><p>Здоровье</p></td> <td><p>Датчики</p></td> <td><p>Память</p></td></tr>
+              <tr class="tr-color2"><td class="td-first"><p>Температура</p></td> <td><p>работает</p></td>  <td><p>да</p></td>          <td><p>100</p></td>      <td><p>3</p></td>       <td><p>149</p></td></tr>
+              <tr class="tr-color1"><td class="td-first"><p>Электро</p></td>     <td><p>работает</p></td>  <td><p>да</p></td>          <td><p>100</p></td>      <td><p>14</p></td>      <td><p>1336</p></td></tr>
+              <tr class="tr-color2"><td class="td-first"><p>Движение</p></td>    <td><p>работает</p></td>  <td><p>да</p></td>          <td><p>100</p></td>      <td><p>6</p></td>       <td><p>74</p></td></tr>
+              <tr class="tr-color1"><td class="td-first"><p>Контакты</p></td>    <td><p>работает</p></td>  <td><p>да</p></td>          <td><p>100</p></td>      <td><p>2</p></td>       <td><p>59</p></td></tr>
+            </table>            
+          </div>
+        </div>
+        <div class="cell-1">
+          <div class="box">            
+            <h3>Управляющие подсистемы</h3>
+            <table class="table-generic">
+              <tr class="tr-title"> <td class="td-first"><p>Название</p></td>           <td><p>Состояние</p></td> <td><p>Отключаемая</p></td> <td><p>Здоровье</p></td> <td><p>Память</p></td></tr>
+              <tr class="tr-color2"><td class="td-first"><p>Светодиодная лента</p></td> <td><p>работает</p></td>  <td><p>да</p></td>          <td><p>100</p></td>      <td><p>?</p></td></tr>
+              <tr class="tr-color1 disable"><td class="td-first"><p>Электронный ключ</p></td>   <td><p>отключена</p></td>  <td><p>да</p></td>          <td><p>-</p></td>      <td><p>?</p></td></tr>
+            </table>            
+          </div>
+        </div>   
+        <div class="cell-1">
+          <div class="box">            
+            <h3>Сетевые подсистемы</h3>
+            <table class="table-generic">
+              <tr class="tr-title"> <td class="td-first"><p>Название</p></td>        <td><p>Состояние</p></td> <td><p>Отключаемая</p></td> <td><p>Здоровье</p></td> <td><p>Память</p></td></tr>
+              <tr class="tr-color2"><td class="td-first"><p>Сетевые команды</p></td> <td><p>работает</p></td>  <td><p>да</p></td>          <td><p>100</p></td>      <td><p>?</p></td></tr>              
+              <tr class="tr-color1 disable"><td class="td-first"><p>Ping</p></td>            <td><p>отключена</p></td>  <td><p>да</p></td>          <td><p>-</p></td>       <td><p>?</p></td></tr>              
+              <tr class="tr-color2"><td class="td-first"><p>MajorDoMo</p></td>       <td><p>работает</p></td>  <td><p>да</p></td>          <td><p>100</p></td>      <td><p>?</p></td></tr>
+              <tr class="tr-color1 disable"><td class="td-first"><p>Laurent</p></td>         <td><p>отключена</p></td>  <td><p>да</p></td>          <td><p>-</p></td>      <td><p>?</p></td></tr>
+            </table>            
+          </div>
+        </div>        
+      </div> <!-- hider -->
+      <div style="clear:both"></div>
+    </div>
+  </div> <!-- level -->
+
+  <div class="level">
+    <div class="block">
+      <div class="level-title clickable" onclick="showHide2()">
+        <h2>Виртуальные</h2>
+        <img src="a-show.png" alt="">
+      </div>
+      <div id="hider-2">
+        <div class="cell-4">
+          <div class="box">
+            <h3>Модуль</h3>
+            <p>Состояние: <span class="value" id="...">работает</span></p>
+            <p>Отключаемый: <span class="value" id="...">да</span></p>
+            <p>Здоровье: <span class="value" id="...">100</span> %</p>
+          </div>
+        </div>
+        <div class="cell-4">
+          <div class="box">
+            <h3>Датчики</h3>
+            <p>Датчиков: <span class="value" id="...">14</span></p>
+            <p>Работает: <span class="value" id="...">14</span></p>
+          </div>
+        </div>
+        <div class="cell-4">
+          <div class="box">
+            <h3>...</h3>
+            <p>...: <span class="value" id="...">...</span></p>
+          </div>
+        </div>
+        <div class="cell-4">
+          <div class="box">
+            <h3>Ресурсы</h3>
+            <p>Память флеш: <span class="value" id="...">3700</span> байт</p>
+            <p>Память ОЗУ: <span class="value" id="...">2500</span> байт</p>
+          </div>
+        </div>
+      </div> <!-- hider -->
+      <div style="clear:both"></div>
+    </div>
+  </div> <!-- level -->
+
+%5
+  
+%4 <!-- footer -->
+</body>
+</html>

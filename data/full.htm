@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+%& <!-- links -->
+  <title>Полноэкранное демо - Arduino Mega Server</title>
+
+<style>
+  .concept1 {
+    color: #fff;
+    background: #C3AFA8 url(//%!/concept1.jpg) no-repeat;
+    background-size: 100% 100%;
+  }
+</style>
+  
+<script>
+  function start() {
+    getElectroForm()
+  }
+  
+  // Timeline graphics
+  var bufferElectro6 = [];
+  var bufferElectro8 = [];
+
+  function getElectroForm() {
+    electro_marker6 = 1;
+
+    var request = new XMLHttpRequest();
+    request.onreadystatechange = function() {
+      if (this.readyState == 4) {
+        if (this.status == 200) {
+          if (this.responseXML != null) {
+
+            electro_marker5 = 1;
+            electro_marker6 = 0;
+
+            var temp1 = 0;
+            var temp2 = 0;
+
+            var num_an = this.responseXML.getElementsByTagName('u').length;
+            for (count = 0; count < num_an; count++) {
+              temp1 = this.responseXML.getElementsByTagName('u')[count].childNodes[0].nodeValue;
+              bufferElectro6[num_an - count] = temp1;
+            }
+
+            var num_an = this.responseXML.getElementsByTagName('i').length;
+            for (count = 0; count < num_an; count++) {
+              temp2 = this.responseXML.getElementsByTagName('i')[count].childNodes[0].nodeValue;
+              bufferElectro8[num_an - count] = temp2;
+            }
+            form('freq-1', 3, temp1, '', bufferElectro6, bufferElectro8, 2, 'rgba(240, 180, 0, 1)', 'rgba(255, 221, 0, 1)', 'rgba(255, 255, 255, 1)', 'rgba(180, 80, 20, 1)');
+          } // if (this.responseXML != null)
+        } // if (this.status == 200)
+      } // if (this.readyState == 4)
+    } // request.onreadystatechange = function()
+
+    electro_marker5 = 0;
+
+    // send HTTP GET request
+    request.open("GET", "req_el_freq" + 'oscill' + randomNoCache(), true);
+    request.send(null);
+    setTimeout('getElectroForm()', 2000);
+  } // getElectroForm()
+  
+%# // scripts.js
+</script>
+
+</head>
+
+<body onload="start();">
+  <div class="level-full concept1">
+    <div class="block">
+      <div class="cell-1">
+        <div class="box-informer1">
+          <canvas id="freq-1" width="360" height="190"></canvas>
+        </div>
+      </div>
+      <div style="clear:both"></div>
+    </div>
+  </div> <!-- level -->
+
+</body>
+</html>

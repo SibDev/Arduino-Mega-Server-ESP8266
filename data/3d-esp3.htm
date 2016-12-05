@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <script src="three.js"></script>
+
+%& <!-- links -->
+  <title>ESP8266 3D learning demo - Arduino Mega Server</title>
+
+<style>
+  .full-screen {
+    background: #000000;
+    color: #bbb;
+    background-size: 100% 100%;
+  }
+  
+  #container canvas {
+    display: block;
+    margin: 0 auto;
+  }
+  
+  .esp-lite1 {
+    color: #eee;
+  }
+  
+  .esp-lite2 {
+    color: #d22;
+  }
+</style>
+
+    <style>
+      body {
+        background-color: #000000;
+        margin: 0px;
+      }
+
+      #info {
+        position: absolute;
+        top: 0px; width: 100%;
+        color: #ffffff;
+        padding: 5px;
+        font-family: Monospace;
+        font-size: 13px;
+        text-align: center;
+      }
+
+      a {
+        color: #ff0080;
+        text-decoration: none;
+      }
+
+      a:hover {
+        color: #0080ff;
+      }
+    </style>
+    
+<script>
+  function start() {
+    //getFull2Data();
+  }
+
+%# // scripts.js
+</script>
+</head>
+
+<body onload="start();">
+  <div id="page_loading" class="light">
+    <div class="loader"><div><div></div></div></div>
+  </div>
+  
+  <div class="level-full full-screen">
+    <div class="cell-3x2">
+      <div id="container"></div>
+    </div>
+    <div class="cell-3">
+      <div class="height-50"></div>
+      <div class="box-image">
+        <img class="auto" src="esp-logo.png" alt="">
+        <div class="box-info auto" style="max-width:380px; padding-left: 5px;">
+          <h2 class="esp-lite1">ESP8266 3D learning demo</h2>
+          <p>Demonstration technology of interactive learning on ESP8266. Modul contain examples, tutorials, helps, interactive models, visualization of processes, systems, states of sensors and more</p>
+          <br>
+          <p class="esp-lite2">Powered by Arduino Mega Server</p>
+        </div>
+      </div>
+    </div>
+    <div style="clear:both"></div>
+  </div> <!-- level -->
+  
+  <div class="panel">
+    <div class="action-panel">
+      <p>.</p>
+    </div>
+    <div class="hidden-panel">
+      <div class="cell-3">
+        <a href="javascript:history.back();">Back</a>
+        <a href="javascript:history.forward();">Forward</a>
+      </div>
+      <div class="cell-3">
+        <a href="/">Home</a>
+      </div>
+      <div class="cell-3">
+        <a href="3d-esp1.htm">First</a>
+      </div>
+      <div style="clear:both"></div>
+    </div>
+  </div> <!-- panel -->
+  
+    <script>
+      var camera, scene, renderer,
+      particle1, particle2, particle2,
+      light1, light2, light3,
+      loader, mesh;
+
+      init();
+      animate();
+
+      function init() {
+        var container = document.getElementById('container');
+
+        camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 1000);
+        camera.position.set(0, - 6, 100);
+
+        scene = new THREE.Scene();
+
+        scene.add(new THREE.AmbientLight(0x00020));
+        light1 = new THREE.PointLight(0xff0040, 1, 50); scene.add(light1);
+        light2 = new THREE.PointLight(0x0040ff, 1, 50); scene.add(light2);
+        light3 = new THREE.PointLight(0x80ff80, 1, 50); scene.add(light3);
+
+        var PI2 = Math.PI * 2;
+        var program = function(context) {
+          context.beginPath();
+          context.arc(0, 0, 0.5, 0, PI2, true);
+          context.fill();
+        }
+
+        particle1 = new THREE.Sprite(new THREE.SpriteCanvasMaterial({color: 0xff0040, program: program}));
+        scene.add(particle1);
+        particle2 = new THREE.Sprite(new THREE.SpriteCanvasMaterial({color: 0x0040ff, program: program}));
+        scene.add(particle2);
+        particle3 = new THREE.Sprite(new THREE.SpriteCanvasMaterial({color: 0x80ff80, program: program}));
+        scene.add(particle3);
+
+        loader = new THREE.JSONLoader();
+        loader.load('head.js', function(geometry) {
+          mesh = new THREE.Mesh(geometry, new THREE.MeshLambertMaterial({color: 0xffffff, shading: THREE.FlatShading, overdraw: true}));
+          scene.add(mesh);
+        });
+
+        var k = 1.5;
+        
+        renderer = new THREE.CanvasRenderer();
+        camera.aspect = (window.innerWidth/1.6) / (window.innerWidth/2);
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth/1.6, window.innerWidth/2);
+        container.appendChild(renderer.domElement);
+        window.addEventListener('resize', onWindowResize, false);
+      }
+
+      function onWindowResize() {
+        camera.aspect = (window.innerWidth/1.6) / (window.innerWidth/2);
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth / 1.6, window.innerWidth / 2);
+      }
+
+      function animate() {
+        requestAnimationFrame(animate);
+        render();
+      }
+
+      function render() {
+        var time = Date.now() * 0.0005;
+
+        if (mesh) mesh.rotation.y -= 0.01;
+
+        particle1.position.x = Math.sin(time * 0.7) * 30;
+        particle1.position.y = Math.cos(time * 0.5) * 40;
+        particle1.position.z = Math.cos(time * 0.3) * 30;
+
+        light1.position.x = particle1.position.x;
+        light1.position.y = particle1.position.y;
+        light1.position.z = particle1.position.z;
+
+        particle2.position.x = Math.cos(time * 0.3) * 30;
+        particle2.position.y = Math.sin(time * 0.5) * 40;
+        particle2.position.z = Math.sin(time * 0.7) * 30;
+
+        light2.position.x = particle2.position.x;
+        light2.position.y = particle2.position.y;
+        light2.position.z = particle2.position.z;
+
+        particle3.position.x = Math.sin(time * 0.7) * 30;
+        particle3.position.y = Math.cos(time * 0.3) * 40;
+        particle3.position.z = Math.sin(time * 0.5) * 30;
+
+        light3.position.x = particle3.position.x;
+        light3.position.y = particle3.position.y;
+        light3.position.z = particle3.position.z;
+
+        renderer.render(scene, camera);
+      }
+    </script>  
+  
+</body>
+</html>
